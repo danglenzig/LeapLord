@@ -9,7 +9,7 @@ namespace LeapLord
         public event System.Action<EnumLeoAnimations> OnAnimLooped;
 
 
-        [SerializeField] private EnumLeoAnimations startingAnimation = EnumLeoAnimations.IDLE;
+        //[SerializeField] private EnumLeoAnimations startingAnimation = EnumLeoAnimations.IDLE;
 
         [SerializeField] private string walkFramesFolder = "SpriteFrames/LeoWalk";
         [SerializeField] private string jumpUpFramesFolder = "SpriteFrames/LeoJumpUp";
@@ -27,7 +27,7 @@ namespace LeapLord
         private void Start()
         {
             mat = GetComponent<Renderer>().material;
-            Play(startingAnimation);
+            mat.SetInt("_Cull", (int)UnityEngine.Rendering.CullMode.Off);
         }
 
         void LoadFrames(string folderPath)
@@ -96,10 +96,11 @@ namespace LeapLord
                 else if (frames.Length > 1)
                 {
                     mat.mainTexture = frames[currentFrame];
+
                     currentFrame = (currentFrame + 1) % frames.Length;
                     if (currentFrame == 0)
                     {
-                        Debug.Log($"Loop at {Time.time}");
+                        //Debug.Log($"Loop at {Time.time}");
                         // invoke the anim looped event
                         OnAnimLooped?.Invoke(currentLeoAnimation); // the ? is important if there are no listeners
                         
@@ -131,7 +132,7 @@ namespace LeapLord
                     if (currentFrame == frames.Length - 1)
                     {
                         // last frame
-                        Debug.Log("Last frame");
+                        //Debug.Log("Last frame");
                         OnAnimFinished?.Invoke(currentLeoAnimation);
                         yield break;
                     }

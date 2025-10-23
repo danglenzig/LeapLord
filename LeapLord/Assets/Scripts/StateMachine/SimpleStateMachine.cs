@@ -69,6 +69,13 @@ namespace LeapLord
             if (nextState == null)
             {
                 Debug.Log($"{currentState.StateName} has no configured transition event {eventString}");
+                return;
+            }
+
+            if (nextState == currentState)
+            {
+                Debug.Log($"Can't transition from one state to itself: {currentState}");
+                return;
             }
 
             currentState.ExitState();
