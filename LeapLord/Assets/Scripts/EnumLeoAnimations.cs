@@ -5,6 +5,7 @@ namespace LeapLord
     {
         WALK,
         IDLE,
+        JUMP_PREP,
         JUMP_UP,
         AIRBORNE
     }

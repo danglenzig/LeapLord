@@ -15,6 +15,7 @@ namespace LeapLord
         [SerializeField] private string jumpUpFramesFolder = "SpriteFrames/LeoJumpUp";
         [SerializeField] private string idleFramesFolder = "SpriteFrames/LeoIdle";
         [SerializeField] private string airborneFramesFolder = "SpriteFrames/LeoAirborne";
+        [SerializeField] private string jumpPrepFramesFolder = "SpriteFrames/LeoJumpPrep";
         [Range(1.0f, 60.0f)][SerializeField] private float frameRate = 10.0f;
 
         private Texture2D[] frames;
@@ -64,6 +65,11 @@ namespace LeapLord
                     currentLeoAnimation = EnumLeoAnimations.WALK;
                     LoadFrames(walkFramesFolder);
                     StartCoroutine(PlayLoopingAnimation());
+                    break;
+                case EnumLeoAnimations.JUMP_PREP:
+                    currentLeoAnimation = EnumLeoAnimations.JUMP_PREP;
+                    LoadFrames(jumpPrepFramesFolder);
+                    StartCoroutine(PlayOneShotAnimation());
                     break;
                 case EnumLeoAnimations.JUMP_UP:
                     currentLeoAnimation = EnumLeoAnimations.JUMP_UP;

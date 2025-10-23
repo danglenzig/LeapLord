@@ -5,6 +5,7 @@ namespace LeapLord
     {
         public const string INPUT_HANDLER_SINGLETON = "SingletonsInputHandler";
         public const string PLAYER_SINGLETON = "SingletonsPlayer";
+        public const string LANDABLE = "Landable";
     }
 }
 

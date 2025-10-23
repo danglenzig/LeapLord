@@ -417,6 +417,7 @@
 "Assets/Scripts/AnimTester.cs"
 "Assets/Scripts/EnumLeoAnimations.cs"
 "Assets/Scripts/InputHandler.cs"
+"Assets/Scripts/JumpStrengthProgressBar.cs"
 "Assets/Scripts/Player.cs"
 "Assets/Scripts/QuadSpriteAnimator.cs"
 "Assets/Scripts/StateMachine/PlayerStateNames.cs"

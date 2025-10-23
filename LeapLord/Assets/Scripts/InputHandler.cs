@@ -11,6 +11,13 @@ namespace LeapLord
         public static event System.Action OnJumpReleased;
 
         private float _moveX = 0.0f;
+
+
+        //private void Start()
+        //{
+        //    Time.timeScale = 0.5f;
+        //}
+
         private float moveX
         {
             get => _moveX;

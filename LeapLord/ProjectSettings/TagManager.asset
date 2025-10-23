@@ -6,11 +6,12 @@ TagManager:
   tags:
   - SingletonsInputHandler
   - SingletonsPlayer
+  - Landable
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Landable
   - Water
   - UI
   - 

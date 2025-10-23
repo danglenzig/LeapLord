@@ -6,6 +6,10 @@ namespace LeapLord
 
         const float MOVE_THRESHOLD = 0.1f;
         const float MOVE_SPEED = 200.0f;
+        const float MAX_JUMP_STRENGTH = 100.0f;
+        const float JUMP_STREGTH_LERP = 0.25f;
+        const float CLOSE_ENOUGH = 0.99f;
+        const float GROUNDED_DISTANCE = 0.5f;
 
         [SerializeField] private SimpleStateMachine psm;
         [HideInInspector] public SimpleStateMachine Psm
@@ -14,6 +18,10 @@ namespace LeapLord
         }
 
         [SerializeField] private QuadSpriteAnimator spriteQuad;
+        [SerializeField] private LayerMask groundLayer;
+        [SerializeField] private JumpStrengthProgressBar progressBar;
+
+
         [Header("States")]
         [SerializeField] private State parkedState;
         [SerializeField] private State idleState;
@@ -29,8 +37,9 @@ namespace LeapLord
         [SerializeField] private StateTransition toAirborneTransition;
 
         private Rigidbody rb;
-        private float moveInputX = 0.0f;
 
+        private float moveInputX = 0.0f;
+        private float jumpStrength = 0.0f;
         private bool _quadIsFlipped = false;
         private bool quadIsFlipped
         {
@@ -85,6 +94,8 @@ namespace LeapLord
         private void Update()
         {
 
+            //Debug.Log(isGro)
+
             if (!rb.isKinematic)
             {
                 transform.rotation = Quaternion.Euler(new Vector3(0.0f, 0.0f, 0.0f));
@@ -115,14 +126,43 @@ namespace LeapLord
                     break;
 
                 case PlayerStateNames.JUMP_PREP:
+                    float _delta = MAX_JUMP_STRENGTH - jumpStrength;
+                    _delta *= JUMP_STREGTH_LERP;
+                    _delta *= Time.deltaTime * 10.0f;
+
+                    if (jumpStrength + _delta < MAX_JUMP_STRENGTH * CLOSE_ENOUGH)
+                    {
+                        jumpStrength += _delta;
+                        progressBar.SetProgress(jumpStrength);
+                        //Debug.Log(jumpStrength);
+                    }
+                    else
+                    {
+                        //max jumpstrength
+                    }
+
                     break;
 
                 case PlayerStateNames.AIRBORNE:
+                    // cast a downward ray
+
+                    if (IsGrounded())
+                    {
+                        psm.SendEventString(toIdleTransition.EventString);
+                    }
                     break;
 
                 default:
                     return;
             }
+        }
+
+        private bool IsGrounded()
+        {
+            Vector3 position = transform.position;
+            Vector3 direction = Vector3.down;
+            return Physics.Raycast(position, direction, GROUNDED_DISTANCE, groundLayer);
+            //return true;
         }
 
         private void SetQuadFlipped(bool flipped)
@@ -139,7 +179,10 @@ namespace LeapLord
                 case PlayerStateNames.PARKED:
                     break;
                 case PlayerStateNames.IDLE:
+
+                    psm.SendEventString(toJumpPrepTransition.EventString);
                     break;
+
                 case PlayerStateNames.WALK:
                     break;
                 case PlayerStateNames.JUMP_PREP:
@@ -161,6 +204,20 @@ namespace LeapLord
                 case PlayerStateNames.WALK:
                     break;
                 case PlayerStateNames.JUMP_PREP:
+
+
+                    float xJump = jumpStrength;
+                    float yJump = jumpStrength * 2.0f;
+                    if (quadIsFlipped)
+                    {
+                        xJump *= -1.0f;
+                    }
+                    rb.isKinematic = false;
+                    Vector3 jumpVector = new Vector3(xJump, yJump, 0.0f);
+                    spriteQuad.Play(EnumLeoAnimations.JUMP_UP);
+                    rb.AddForce(jumpVector * 1.5f);
+                    StartCoroutine(GoToAirborneStateAfterDelay(0.1f));
+
                     break;
                 case PlayerStateNames.AIRBORNE:
                     break;
@@ -187,8 +244,12 @@ namespace LeapLord
                     rb.isKinematic = false;
                     break;
                 case PlayerStateNames.JUMP_PREP:
+                    progressBar.gameObject.SetActive(true);
+                    spriteQuad.Play(EnumLeoAnimations.JUMP_PREP);
+                    jumpStrength = 0.0f;
                     break;
                 case PlayerStateNames.AIRBORNE:
+                    spriteQuad.Play(EnumLeoAnimations.AIRBORNE);
                     break;
                 default:
                     Debug.Log("Something weird happened");
@@ -207,6 +268,8 @@ namespace LeapLord
                 case PlayerStateNames.WALK:
                     break;
                 case PlayerStateNames.JUMP_PREP:
+                    progressBar.gameObject.SetActive(false);
+                    jumpStrength = 0.0f;
                     break;
                 case PlayerStateNames.AIRBORNE:
                     break;
@@ -214,6 +277,12 @@ namespace LeapLord
                     Debug.Log("Something weird happened");
                     return;
             }
+        }
+
+        private System.Collections.IEnumerator GoToAirborneStateAfterDelay(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            psm.SendEventString(toAirborneTransition.EventString);
         }
 
 

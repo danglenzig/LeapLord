@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\AnimTester.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\Tags.cs" />
+    <Compile Include="Assets\Scripts\JumpStrengthProgressBar.cs" />
     <Compile Include="Assets\Scripts\StateMachine\StateTransition.cs" />
     <Compile Include="Assets\Scripts\StateMachine\PlayerStateNames.cs" />
   </ItemGroup>
