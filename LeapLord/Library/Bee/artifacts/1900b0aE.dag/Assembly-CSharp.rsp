@@ -416,7 +416,12 @@
 -analyzer:"C:/Program Files/Unity/Hub/Editor/6000.2.6f2/Editor/Data/Tools/Unity.SourceGenerators/Unity.UIToolkit.SourceGenerator.dll"
 "Assets/Scripts/AnimTester.cs"
 "Assets/Scripts/EnumLeoAnimations.cs"
+"Assets/Scripts/Player.cs"
 "Assets/Scripts/QuadSpriteAnimator.cs"
+"Assets/Scripts/StateMachine/PlayerStateNames.cs"
+"Assets/Scripts/StateMachine/SimpleStateMachine.cs"
+"Assets/Scripts/StateMachine/State.cs"
+"Assets/Scripts/StateMachine/StateTransition.cs"
 -langversion:9.0
 /deterministic
 /optimize+

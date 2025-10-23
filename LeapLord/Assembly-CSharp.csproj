@@ -61,9 +61,14 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.2.6f2\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\StateMachine\State.cs" />
     <Compile Include="Assets\Scripts\QuadSpriteAnimator.cs" />
     <Compile Include="Assets\Scripts\EnumLeoAnimations.cs" />
+    <Compile Include="Assets\Scripts\StateMachine\SimpleStateMachine.cs" />
     <Compile Include="Assets\Scripts\AnimTester.cs" />
+    <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\StateMachine\StateTransition.cs" />
+    <Compile Include="Assets\Scripts\StateMachine\PlayerStateNames.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
