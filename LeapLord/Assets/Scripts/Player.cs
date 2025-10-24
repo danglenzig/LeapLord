@@ -101,6 +101,9 @@ namespace LeapLord
             walkState.OnStateExited += HandleOnStateExited;
             jumpPrepState.OnStateExited += HandleOnStateExited;
             airborneState.OnStateExited += HandleOnStateExited;
+
+            spriteQuad.OnAnimFinished += HandleAnimationFinished;
+
         }
 
         private void Start()
@@ -256,6 +259,19 @@ namespace LeapLord
                     return;
                 default:
                     Debug.Log("Something weird happened");
+                    return;
+            }
+        }
+
+        private void HandleAnimationFinished(EnumLeoAnimations leoAnim)
+        {
+            switch (leoAnim)
+            {
+                case EnumLeoAnimations.JUMP_UP:
+                    spriteQuad.Play(EnumLeoAnimations.AIRBORNE);
+                    return;
+
+                default:
                     return;
             }
         }

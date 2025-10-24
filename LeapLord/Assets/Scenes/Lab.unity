@@ -1190,12 +1190,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LeapLord.Player
   psm: {fileID: 414724746}
+  progressBar: {fileID: 1548852759}
   spriteQuad: {fileID: 7426391281592712169}
+  stateHandlers: {fileID: 139841816}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  progressBar: {fileID: 1548852759}
-  stateHandlers: {fileID: 139841816}
   parkedState: {fileID: 921658628}
   idleState: {fileID: 1558024417}
   walkState: {fileID: 1364670942}
@@ -1531,6 +1531,7 @@ MonoBehaviour:
   stateName: WALK
   transitions:
   - {fileID: 1080246806}
+  - {fileID: 1790881804}
 --- !u!1 &1401490700
 GameObject:
   m_ObjectHideFlags: 0
@@ -1925,6 +1926,7 @@ MonoBehaviour:
   - {fileID: 1606587636}
   - {fileID: 1801917570}
   - {fileID: 2010840261}
+  - {fileID: 1790881804}
 --- !u!1 &1606587634
 GameObject:
   m_ObjectHideFlags: 0

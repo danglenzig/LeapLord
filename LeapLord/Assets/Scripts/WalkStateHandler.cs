@@ -17,15 +17,27 @@ namespace LeapLord
         public override void HandleUpdate(float dTime, float moveX)
         {
             base.HandleUpdate(dTime, moveX);
-            if (Mathf.Abs(moveX) < Player.MOVE_THRESHOLD)
+
+            if (player.IsGrounded())
             {
-                psm.SendEventString(player.ToIdleTransition.EventString);
+                if (Mathf.Abs(moveX) < Player.MOVE_THRESHOLD)
+                {
+                    psm.SendEventString(player.ToIdleTransition.EventString);
+                    return;
+                }
+                player.QuadIsFlipped = (moveX < 0.0f);
+                float xVelocity = moveX * Player.MOVE_SPEED * dTime;
+                playerRB.linearVelocity = new Vector3(xVelocity, 0.0f, 0.0f);
                 return;
             }
-            player.QuadIsFlipped = (moveX < 0.0f);
-            float xVelocity = moveX * Player.MOVE_SPEED * dTime;
-            playerRB.linearVelocity = new Vector3(xVelocity, 0.0f, 0.0f);
-            return;
+            else
+            {
+                psm.SendEventString(player.ToAirborneTransition.EventString);
+                player.SpriteQuad.Play(EnumLeoAnimations.AIRBORNE);
+                return;
+            }
+
+            
         }
         public override void HandleFixedUpdate(float dTime)
         {

@@ -18,11 +18,21 @@ namespace LeapLord
         public override void HandleUpdate(float dTime, float moveX)
         {
             base.HandleUpdate(dTime, moveX);
-            if (Mathf.Abs(moveX) >= Player.MOVE_THRESHOLD)
+            if (player.IsGrounded())
             {
-                psm.SendEventString(player.ToWalkTransition.EventString);
+                if (Mathf.Abs(moveX) >= Player.MOVE_THRESHOLD)
+                {
+                    psm.SendEventString(player.ToWalkTransition.EventString);
+                    return;
+                }
+            }
+            else
+            {
+                psm.SendEventString(player.ToAirborneTransition.EventString);
+                player.SpriteQuad.Play(EnumLeoAnimations.AIRBORNE);
                 return;
             }
+            
             return;
             
         }

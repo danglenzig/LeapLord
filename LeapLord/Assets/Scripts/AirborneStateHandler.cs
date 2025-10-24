@@ -6,7 +6,8 @@ namespace LeapLord
         public override void HandleOnEnter()
         {
             base.HandleOnEnter();
-            player.SpriteQuad.Play(EnumLeoAnimations.AIRBORNE);
+            playerRB.isKinematic = false;
+            //player.SpriteQuad.Play(EnumLeoAnimations.AIRBORNE);
         }
         public override void HandleOnExit()
         {
