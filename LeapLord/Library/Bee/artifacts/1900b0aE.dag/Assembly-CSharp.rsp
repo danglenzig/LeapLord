@@ -419,6 +419,7 @@
 "Assets/Scripts/CameraMover.cs"
 "Assets/Scripts/CameraTrigger.cs"
 "Assets/Scripts/EnumLeoAnimations.cs"
+"Assets/Scripts/FloatTweener.cs"
 "Assets/Scripts/IdleStateHandler.cs"
 "Assets/Scripts/InputHandler.cs"
 "Assets/Scripts/JumpPrepStateHandler.cs"

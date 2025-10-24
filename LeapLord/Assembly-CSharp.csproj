@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\InputHandler.cs" />
     <Compile Include="Assets\Scripts\StateMachine\State.cs" />
+    <Compile Include="Assets\Scripts\FloatTweener.cs" />
     <Compile Include="Assets\Scripts\QuadSpriteAnimator.cs" />
     <Compile Include="Assets\Scripts\ParkedStateHandler.cs" />
     <Compile Include="Assets\Scripts\StateHandlers.cs" />
