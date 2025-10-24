@@ -416,6 +416,8 @@
 -analyzer:"C:/Program Files/Unity/Hub/Editor/6000.2.6f2/Editor/Data/Tools/Unity.SourceGenerators/Unity.UIToolkit.SourceGenerator.dll"
 "Assets/Scripts/AirborneStateHandler.cs"
 "Assets/Scripts/AnimTester.cs"
+"Assets/Scripts/CameraMover.cs"
+"Assets/Scripts/CameraTrigger.cs"
 "Assets/Scripts/EnumLeoAnimations.cs"
 "Assets/Scripts/IdleStateHandler.cs"
 "Assets/Scripts/InputHandler.cs"

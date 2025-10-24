@@ -9,14 +9,9 @@ namespace LeapLord
         public static event System.Action<float> OnMoveXChanged;
         public static event System.Action OnJumpPressed;
         public static event System.Action OnJumpReleased;
+        public static event System.Action OnTestButtonPressed;
 
         private float _moveX = 0.0f;
-
-
-        //private void Start()
-        //{
-        //    Time.timeScale = 0.5f;
-        //}
 
         private float moveX
         {
@@ -78,6 +73,11 @@ namespace LeapLord
             if (myKB.spaceKey.wasReleasedThisFrame)
             {
                 OnJumpReleased?.Invoke();
+            }
+
+            if (myKB.tKey.wasPressedThisFrame)
+            {
+                OnTestButtonPressed?.Invoke();
             }
 
         }

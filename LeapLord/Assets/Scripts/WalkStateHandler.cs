@@ -26,7 +26,7 @@ namespace LeapLord
                     return;
                 }
                 player.QuadIsFlipped = (moveX < 0.0f);
-                float xVelocity = moveX * Player.MOVE_SPEED * dTime;
+                float xVelocity = moveX * Player.MOVE_SPEED;
                 playerRB.linearVelocity = new Vector3(xVelocity, 0.0f, 0.0f);
                 return;
             }

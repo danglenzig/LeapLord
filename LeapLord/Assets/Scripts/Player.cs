@@ -5,7 +5,7 @@ namespace LeapLord
     {
 
         public const float MOVE_THRESHOLD = 0.1f;
-        public const float MOVE_SPEED = 200.0f;
+        public const float MOVE_SPEED = 1.5f;
         public const float MAX_JUMP_STRENGTH = 100.0f;
         public const float JUMP_STREGTH_LERP = 0.25f;
         public const float CLOSE_ENOUGH = 0.99f;

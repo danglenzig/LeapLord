@@ -71,6 +71,8 @@
     <Compile Include="Assets\Scripts\StateMachine\SimpleStateMachine.cs" />
     <Compile Include="Assets\Scripts\AnimTester.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\CameraMover.cs" />
+    <Compile Include="Assets\Scripts\CameraTrigger.cs" />
     <Compile Include="Assets\Scripts\WalkStateHandler.cs" />
     <Compile Include="Assets\Scripts\Tags.cs" />
     <Compile Include="Assets\Scripts\JumpStrengthProgressBar.cs" />
