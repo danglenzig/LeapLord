@@ -4,23 +4,25 @@ namespace LeapLord
     public class Player : MonoBehaviour
     {
 
-        const float MOVE_THRESHOLD = 0.1f;
-        const float MOVE_SPEED = 200.0f;
-        const float MAX_JUMP_STRENGTH = 100.0f;
-        const float JUMP_STREGTH_LERP = 0.25f;
-        const float CLOSE_ENOUGH = 0.99f;
-        const float GROUNDED_DISTANCE = 0.5f;
+        public const float MOVE_THRESHOLD = 0.1f;
+        public const float MOVE_SPEED = 200.0f;
+        public const float MAX_JUMP_STRENGTH = 100.0f;
+        public const float JUMP_STREGTH_LERP = 0.25f;
+        public const float CLOSE_ENOUGH = 0.99f;
+        public const float GROUNDED_DISTANCE = 0.5f;
 
         [SerializeField] private SimpleStateMachine psm;
-        [HideInInspector] public SimpleStateMachine Psm
-        {
-            get => psm;
-        }
+        [HideInInspector] public SimpleStateMachine Psm { get => psm; }
+
+        
+        [SerializeField] private JumpStrengthProgressBar progressBar;
+        [HideInInspector] public JumpStrengthProgressBar ProgressBar { get => progressBar; }
 
         [SerializeField] private QuadSpriteAnimator spriteQuad;
-        [SerializeField] private LayerMask groundLayer;
-        [SerializeField] private JumpStrengthProgressBar progressBar;
+        [HideInInspector] public QuadSpriteAnimator SpriteQuad { get => spriteQuad; }
 
+        [SerializeField] private StateHandlers stateHandlers;
+        [SerializeField] private LayerMask groundLayer;
 
         [Header("States")]
         [SerializeField] private State parkedState;
@@ -31,33 +33,51 @@ namespace LeapLord
 
         [Header("Transitions")]
         [SerializeField] private StateTransition toParkedTransition;
+        [HideInInspector] public StateTransition ToParkedTransition { get => toParkedTransition; }
+
         [SerializeField] private StateTransition toIdleTransition;
+        [HideInInspector] public StateTransition ToIdleTransition { get => toIdleTransition; }
+
         [SerializeField] private StateTransition toWalkTransition;
+        [HideInInspector] public StateTransition ToWalkTransition { get => toWalkTransition; }
+
         [SerializeField] private StateTransition toJumpPrepTransition;
+        [HideInInspector] public StateTransition ToJumpPrepTransition { get => toJumpPrepTransition; }
+
         [SerializeField] private StateTransition toAirborneTransition;
+        [HideInInspector] public StateTransition ToAirborneTransition { get => toAirborneTransition; }
+        
 
-        private Rigidbody rb;
-
-        private float moveInputX = 0.0f;
         private float jumpStrength = 0.0f;
-        private bool _quadIsFlipped = false;
-        private bool quadIsFlipped
+        public float JumpStrength
         {
-            get => _quadIsFlipped;
+            get => jumpStrength;
             set
             {
-                if (value != _quadIsFlipped)
-                {
-                    _quadIsFlipped = value;
-                    SetQuadFlipped(_quadIsFlipped);
-                }
+                jumpStrength = value;
             }
         }
+
+        private bool quadIsFlipped = false;
+        [HideInInspector] public bool QuadIsFlipped
+        {
+            get => quadIsFlipped;
+            set
+            {
+                if (value == quadIsFlipped) return;
+                quadIsFlipped = value;
+                SetQuadFlipped(value);
+            }
+        }
+
+        private Rigidbody rb;
+        private float moveInputX = 0.0f;
+        private bool _isReady = false;
 
 
         private void Awake()
         {
-
+            
             if (GameObject.FindGameObjectsWithTag(Tags.PLAYER_SINGLETON).Length > 0)
             {
                 Destroy(this);
@@ -65,10 +85,8 @@ namespace LeapLord
             gameObject.tag = Tags.PLAYER_SINGLETON;
             DontDestroyOnLoad(this);
 
-            InputHandler.OnMoveXChanged += (_value) =>
-            {
-                moveInputX = _value;
-            };
+            // EVENT CONNECTIONS //
+            InputHandler.OnMoveXChanged += (_value) => { moveInputX = _value; };
             InputHandler.OnJumpPressed += HandleOnJumpPressed;
             InputHandler.OnJumpReleased += HandleOnJumpReleased;
 
@@ -89,80 +107,47 @@ namespace LeapLord
         {
             rb = GetComponent<Rigidbody>();
             psm.SendEventString(toIdleTransition.EventString);
+            stateHandlers.player = this; // the stateHandlers script calls SetIsReady after it creates its dependencies
         }
-
+        
         private void Update()
         {
+            if (!_isReady) { return; }
 
-            //Debug.Log(isGro)
-
-            if (!rb.isKinematic)
+            if (!rb.isKinematic) // stand up straight
             {
                 transform.rotation = Quaternion.Euler(new Vector3(0.0f, 0.0f, 0.0f));
+                transform.position = new Vector3(transform.position.x, transform.position.y, 0.85f);
             }
-           
+
+            // handle state-dependent update behaviors
             switch (psm.CurrentState.StateName)
             {
                 case PlayerStateNames.PARKED:
-                    break;
-
+                    //stateHandlers.ParkedHandler.HandleUpdate(this, Time.deltaTime, moveInputX);
+                    return;
                 case PlayerStateNames.IDLE:
-                    if (Mathf.Abs(moveInputX) >= MOVE_THRESHOLD)
-                    {
-                        psm.SendEventString(toWalkTransition.EventString);
-                        return;
-                    }
-                    break;
-
+                    stateHandlers.IdleHandler.HandleUpdate(Time.deltaTime, moveInputX);
+                    return;
                 case PlayerStateNames.WALK:
-                    if (Mathf.Abs(moveInputX) < MOVE_THRESHOLD)
-                    {
-                        psm.SendEventString(toIdleTransition.EventString);
-                        return;
-                    }
-                    quadIsFlipped = (moveInputX < 0.0f);
-                    float _moveX = moveInputX * MOVE_SPEED * Time.deltaTime;
-                    rb.linearVelocity = new Vector3(_moveX, 0.0f, 0.0f);
-                    break;
-
+                    stateHandlers.WalkHandler.HandleUpdate(Time.deltaTime, moveInputX);
+                    return;
                 case PlayerStateNames.JUMP_PREP:
-                    float _delta = MAX_JUMP_STRENGTH - jumpStrength;
-                    _delta *= JUMP_STREGTH_LERP;
-                    _delta *= Time.deltaTime * 10.0f;
-
-                    if (jumpStrength + _delta < MAX_JUMP_STRENGTH * CLOSE_ENOUGH)
-                    {
-                        jumpStrength += _delta;
-                        progressBar.SetProgress(jumpStrength);
-                        //Debug.Log(jumpStrength);
-                    }
-                    else
-                    {
-                        //max jumpstrength
-                    }
-
-                    break;
-
+                    stateHandlers.JumpPrepHandler.HandleUpdate(Time.deltaTime, moveInputX);
+                    return;
                 case PlayerStateNames.AIRBORNE:
-                    // cast a downward ray
-
-                    if (IsGrounded())
-                    {
-                        psm.SendEventString(toIdleTransition.EventString);
-                    }
-                    break;
-
+                    stateHandlers.AirborneHandler.HandleUpdate(Time.deltaTime, moveInputX);
+                    return;
                 default:
                     return;
             }
         }
 
-        private bool IsGrounded()
+        public bool IsGrounded()
         {
             Vector3 position = transform.position;
             Vector3 direction = Vector3.down;
             return Physics.Raycast(position, direction, GROUNDED_DISTANCE, groundLayer);
-            //return true;
         }
 
         private void SetQuadFlipped(bool flipped)
@@ -174,53 +159,49 @@ namespace LeapLord
 
         private void HandleOnJumpPressed()
         {
+            // handle state-based on-jump-pressed behaviors
             switch (psm.CurrentState.StateName)
             {
                 case PlayerStateNames.PARKED:
-                    break;
+                    //stateHandlers.ParkedHandler.HandleJumpPressed();
+                    return;
                 case PlayerStateNames.IDLE:
-
-                    psm.SendEventString(toJumpPrepTransition.EventString);
-                    break;
-
+                    stateHandlers.IdleHandler.HandleJumpPressed();
+                    return;
                 case PlayerStateNames.WALK:
-                    break;
+                    //stateHandlers.WalkHandler.HandleJumpPressed();
+                    return;
                 case PlayerStateNames.JUMP_PREP:
-                    break;
+                    //stateHandlers.JumpPrepHandler.HandleJumpPressed();
+                    return;
                 case PlayerStateNames.AIRBORNE:
-                    break;
+                    //stateHandlers.AirborneHandler.HandleJumpPressed();
+                    return;
                 default:
                     return;
             }
         }
         private void HandleOnJumpReleased()
         {
+            // handle state-based on-jump-released behaviors
             switch (psm.CurrentState.StateName)
             {
                 case PlayerStateNames.PARKED:
-                    break;
+                    //stateHandlers.ParkedHandler.HandleJumpReleased();
+                    return;
                 case PlayerStateNames.IDLE:
-                    break;
+                    //stateHandlers.IdleHandler.HandleJumpReleased();
+                    return;
                 case PlayerStateNames.WALK:
-                    break;
+                    //stateHandlers.WalkHandler.HandleJumpReleased();
+                    return;
                 case PlayerStateNames.JUMP_PREP:
 
-
-                    float xJump = jumpStrength;
-                    float yJump = jumpStrength * 2.0f;
-                    if (quadIsFlipped)
-                    {
-                        xJump *= -1.0f;
-                    }
-                    rb.isKinematic = false;
-                    Vector3 jumpVector = new Vector3(xJump, yJump, 0.0f);
-                    spriteQuad.Play(EnumLeoAnimations.JUMP_UP);
-                    rb.AddForce(jumpVector * 1.5f);
-                    StartCoroutine(GoToAirborneStateAfterDelay(0.1f));
-
-                    break;
+                    stateHandlers.JumpPrepHandler.HandleJumpReleased();
+                    return;
                 case PlayerStateNames.AIRBORNE:
-                    break;
+                    //stateHandlers.AirborneHandler.HandleJumpReleased();
+                    return;
                 default:
                     return;
             }
@@ -229,28 +210,24 @@ namespace LeapLord
 
         private void HandleOnStateEntered(State enteredState)
         {
+            // handle on enter state behaviors
             switch (enteredState.StateName)
             {
                 case PlayerStateNames.PARKED:
-                    break;
-
+                    //stateHandlers.ParkedHandler.HandleOnEnter();
+                    return;
                 case PlayerStateNames.IDLE:
-                    spriteQuad.Play(EnumLeoAnimations.IDLE);
-                    rb.isKinematic = true;
-                    //rb.linearVelocity = new Vector3(0.0f, 0.0f, 0.0f);
-                    break;
+                    stateHandlers.IdleHandler.HandleOnEnter();
+                    return;
                 case PlayerStateNames.WALK:
-                    spriteQuad.Play(EnumLeoAnimations.WALK);
-                    rb.isKinematic = false;
-                    break;
+                    stateHandlers.WalkHandler.HandleOnEnter();
+                    return;
                 case PlayerStateNames.JUMP_PREP:
-                    progressBar.gameObject.SetActive(true);
-                    spriteQuad.Play(EnumLeoAnimations.JUMP_PREP);
-                    jumpStrength = 0.0f;
-                    break;
+                    stateHandlers.JumpPrepHandler.HandleOnEnter();
+                    return;
                 case PlayerStateNames.AIRBORNE:
-                    spriteQuad.Play(EnumLeoAnimations.AIRBORNE);
-                    break;
+                    stateHandlers.AirborneHandler.HandleOnEnter();
+                    return;
                 default:
                     Debug.Log("Something weird happened");
                     return;
@@ -259,34 +236,34 @@ namespace LeapLord
 
         private void HandleOnStateExited(State exitedState)
         {
+            // handle on exit state behaviors
             switch (exitedState.StateName)
             {
                 case PlayerStateNames.PARKED:
-                    break;
+                    //stateHandlers.ParkedHandler.HandleOnExit();
+                    return;
                 case PlayerStateNames.IDLE:
-                    break;
+                    //stateHandlers.IdleHandler.HandleOnExit();
+                    return;
                 case PlayerStateNames.WALK:
-                    break;
+                    //stateHandlers.WalkHandler.HandleOnExit();
+                    return;
                 case PlayerStateNames.JUMP_PREP:
-                    progressBar.gameObject.SetActive(false);
-                    jumpStrength = 0.0f;
-                    break;
+                    stateHandlers.JumpPrepHandler.HandleOnExit();
+                    return;
                 case PlayerStateNames.AIRBORNE:
-                    break;
+                    //stateHandlers.AirborneHandler.HandleOnExit();
+                    return;
                 default:
                     Debug.Log("Something weird happened");
                     return;
             }
         }
 
-        private System.Collections.IEnumerator GoToAirborneStateAfterDelay(float delay)
+        public void SetIsReady(bool val)
         {
-            yield return new WaitForSeconds(delay);
-            psm.SendEventString(toAirborneTransition.EventString);
+            _isReady = val;
         }
-
-
-
     }
 }
 

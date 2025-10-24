@@ -64,12 +64,19 @@
     <Compile Include="Assets\Scripts\InputHandler.cs" />
     <Compile Include="Assets\Scripts\StateMachine\State.cs" />
     <Compile Include="Assets\Scripts\QuadSpriteAnimator.cs" />
+    <Compile Include="Assets\Scripts\ParkedStateHandler.cs" />
+    <Compile Include="Assets\Scripts\StateHandlers.cs" />
     <Compile Include="Assets\Scripts\EnumLeoAnimations.cs" />
+    <Compile Include="Assets\Scripts\AirborneStateHandler.cs" />
     <Compile Include="Assets\Scripts\StateMachine\SimpleStateMachine.cs" />
     <Compile Include="Assets\Scripts\AnimTester.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\WalkStateHandler.cs" />
     <Compile Include="Assets\Scripts\Tags.cs" />
     <Compile Include="Assets\Scripts\JumpStrengthProgressBar.cs" />
+    <Compile Include="Assets\Scripts\IdleStateHandler.cs" />
+    <Compile Include="Assets\Scripts\StateHandler.cs" />
+    <Compile Include="Assets\Scripts\JumpPrepStateHandler.cs" />
     <Compile Include="Assets\Scripts\StateMachine\StateTransition.cs" />
     <Compile Include="Assets\Scripts\StateMachine\PlayerStateNames.cs" />
   </ItemGroup>

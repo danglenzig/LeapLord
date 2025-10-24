@@ -25,7 +25,15 @@ namespace LeapLord
             progress /= 100.0f;
             float width = MAX_WIDTH * progress;
             foregroundQuad.transform.localScale = new Vector3(width, HEIGHT, DEPTH);
+
+            float diff = MAX_WIDTH - width;
+
+
+
+
         }
+
+
 
 
     }
