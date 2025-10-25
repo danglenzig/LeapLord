@@ -4,162 +4,130 @@ namespace LeapLord
 {
     public class CameraMover : MonoBehaviour
     {
-
-        //private const float DAMP = 0.1f;
-
-        private const float MOVE_SPEED = 1.0f;
+        private const float DAMP = 0.25f;
         private const float CLOSE_ENOUGH = 0.01f;
-        private const float MOVE_LERP = 4.0f;
+        private const float MOVE_LERP = 0.5f;
 
-        [SerializeField] GameObject levelMarker01;
-        [SerializeField] GameObject levelMarker02;
+        [SerializeField] float moveSpeed = 15.0f;
 
-        [SerializeField] float Level01TopPlayerY;
-        [SerializeField] float Level02TopPlayerY;
+        [Header("MARKERS")]
+        // these are all just empty game objects, whose
+        // only value is their position.
+        [SerializeField] private GameObject cameraMarker00;
+        [SerializeField] private GameObject playerMarker00;
 
-        private float camY_01;
-        private float camY_02;
+        [SerializeField] private GameObject cameraMarker01;
+        [SerializeField] private GameObject playerMarker01;
 
-        private Camera cam;
+        [SerializeField] private GameObject cameraMarker02;
+        [SerializeField] private GameObject playerMarker02;
+
+        // ...and so on
+
         private Player player;
-        private bool isDamp = false;
-        
-        private bool isMoving = false;
-        private List<float> camYList = new List<float>();
+        private Camera cam;
+        private GameObject currentCameraMarker;
 
-        private float _currentCamY;
-        private float currentCamY
-        {
-            get => _currentCamY;
-            set
-            {
-                if (value == _currentCamY) return;
-                _currentCamY = value;
-            }
-        }
-
-        
-
-
-        private void Awake()
-        {
-            cam = Camera.main;
-            
-            camY_01 = levelMarker01.transform.position.y;
-            camY_02 = levelMarker02.transform.position.y;
-
-            camYList.Add(camY_01);
-            camYList.Add(camY_02);
-
-        }
+        private bool dampened = false;
+        private bool beMoving = true;
 
         private void Start()
         {
-            transform.position = Vector3.zero;
-            cam.transform.position = new Vector3(cam.transform.position.x, camY_01, cam.transform.position.z);
-            currentCamY = camY_01;
-
+            currentCameraMarker = cameraMarker00;
+            cam = Camera.main;
+            GameObject playerGO = GameObject.FindGameObjectWithTag(Tags.PLAYER_SINGLETON);
             player = GetPlayer();
-
         }
 
         private void Update()
         {
-            //Debug.Log(isMoving);
 
-            
-            if (player == null)
-            {
-                player = GetPlayer();
-            }
+            if (beMoving) { MoveCamUpdate(Time.deltaTime); return; }
 
-            if (player == null) return;
+            if (player == null) { player = GetPlayer(); }
+            if (player == null) { return; }
+            if (dampened) { return; }
 
             float playerY = player.transform.position.y;
 
-
-            // this is all fucked up
-
-
-            if (playerY < Level01TopPlayerY)
+            if (playerY < playerMarker00.transform.position.y)
             {
-                currentCamY = camY_01;
-                MoveToNewCurrentCamY();
-                return;
-                /*
-                if (currentCamY == camY_01) return;
-                else
+                if (currentCameraMarker != cameraMarker00)
                 {
-                    currentCamY = camY_01;
+                    MoveCamToMarker(cameraMarker00);
                     return;
                 }
-                */
-            }
-            if (playerY < Level02TopPlayerY)
-            {
-                currentCamY = camY_02;
-                MoveToNewCurrentCamY();
                 return;
-                /*
-                if (currentCamY == camY_02) return;
-                else
-                {   
-                    currentCamY = camY_02;
+            }
+            else if (playerY < playerMarker01.transform.position.y)
+            {
+                if (currentCameraMarker != cameraMarker01)
+                {
+                    MoveCamToMarker(cameraMarker01);
                     return;
                 }
-                */
+                return;
             }
-
-
-
-            if (!isMoving) return;
-
-
-            //Debug.Log(currentCamY);
-
-            
-
-            float _y = cam.transform.position.y;
-            float distanceToTargetY = Mathf.Abs(currentCamY - _y);
-
-            Debug.Log(distanceToTargetY);
-
-
-            if (distanceToTargetY <= CLOSE_ENOUGH)
+            else if (playerY < playerMarker02.transform.position.y)
             {
-                isMoving = false;
-                //Debug.Log("hkjhjkhkjhkj");
+                if (currentCameraMarker != cameraMarker02)
+                {
+                    MoveCamToMarker(cameraMarker02);
+                    return;
+                }
                 return;
             }
 
-            float moveDistance = distanceToTargetY * MOVE_LERP * Time.deltaTime;
-            if (currentCamY < _y) { moveDistance *= -1.0f; }
-            cam.transform.Translate(new Vector3(0.0f, moveDistance, 0.0f));
-
+            // and so on...
         }
 
 
-        private void MoveToNewCurrentCamY()
+
+        private void MoveCamUpdate(float dTime)
         {
-            isMoving = true;
+            float targetY = currentCameraMarker.transform.position.y;
+            float camY = cam.transform.position.y;
+            float distanceToTarget = Mathf.Abs(targetY - camY);
+            if (distanceToTarget <= CLOSE_ENOUGH)
+            {
+                beMoving = false;
+                return;
+            }
+
+
+            float distanceThisUpdate = distanceToTarget * MOVE_LERP * moveSpeed * dTime;
+            if (targetY < camY) { distanceThisUpdate *= -1; }
+
+            Vector3 translateVector = new Vector3(0.0f, distanceThisUpdate, 0.0f);
+            cam.transform.Translate(translateVector);
+
         }
+
+        private void MoveCamToMarker(GameObject camMarker)
+        {
+            StartCoroutine(Dampen());
+            currentCameraMarker = camMarker;
+            beMoving = true;
+        }
+
 
         private Player? GetPlayer()
         {
-            Player _player = null;
-            GameObject playerGo = GameObject.FindGameObjectWithTag(Tags.PLAYER_SINGLETON);
-            _player = playerGo.GetComponent<Player>();
-            return _player;
+            GameObject playerGO = GameObject.FindGameObjectWithTag(Tags.PLAYER_SINGLETON);
+            if (playerGO != null)
+            {
+                return playerGO.GetComponent<Player>();
+            }
+            return null;
         }
-        
 
-        private void HandleOnTriggered(int roomID)
+        private System.Collections.IEnumerator Dampen()
         {
-            if (isMoving) return;
-            float newCamY = camYList[roomID - 1];
-            if (newCamY == currentCamY) return;
-            currentCamY = newCamY;
+            dampened = true;
+            yield return new WaitForSeconds(DAMP);
+            dampened = false;
         }
+
 
     }
 
