@@ -429,6 +429,7 @@
 "Assets/Scripts/JumpStrengthProgressBar.cs"
 "Assets/Scripts/ParkedStateHandler.cs"
 "Assets/Scripts/Player.cs"
+"Assets/Scripts/PlayerManager.cs"
 "Assets/Scripts/QuadSpriteAnimator.cs"
 "Assets/Scripts/StateHandler.cs"
 "Assets/Scripts/StateHandlers.cs"
