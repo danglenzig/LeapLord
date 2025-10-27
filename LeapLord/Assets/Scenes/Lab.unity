@@ -2549,8 +2549,30 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5223068124953181618, guid: 842e904769d3c5a46bcae1a86cce67fd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3948184316075970728}
   m_SourcePrefab: {fileID: 100100000, guid: 842e904769d3c5a46bcae1a86cce67fd, type: 3}
+--- !u!1 &3948184316075970727 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5223068124953181618, guid: 842e904769d3c5a46bcae1a86cce67fd, type: 3}
+  m_PrefabInstance: {fileID: 3948184316075970726}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3948184316075970728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3948184316075970727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d6bf21b3030310458e6a44359f79cc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LeapLord.TeleportEffect
+  framesFolder: SpriteFrames/TeleportEffect
+  frameRate: 20
 --- !u!4 &4025048894819821189
 Transform:
   m_ObjectHideFlags: 0
