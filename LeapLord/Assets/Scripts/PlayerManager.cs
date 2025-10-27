@@ -1,27 +1,29 @@
 using UnityEngine;
+using System.Collections.Generic;
 namespace LeapLord
 {
     public class PlayerManager : MonoBehaviour
     {
 
         private const float POLLING_INTERVAL = 0.5f;
+        private const int MAX_GEMS = 3;
 
-        private Player player;
 
-        private float highestPlayerY = 0.0f;
+        [SerializeField] private GameObject checkpointPrefab;
+        private static GameObject staticCheckpointPrefab;
+
+
+        private static float highestPlayerY = 0.0f;
+
+        private static float lastCheckpointY = 0.0f;
+        private static Vector3 lastCheckpointPos = Vector3.zero;
+        
+        private static int checkpointsDropped = 0;
+        //private static List<Transform> checkpointTransforms;
+        private static int gems = 0;
+
+        private static Player player;
         private float timeAccumulator = 0.0f;
-
-        private int playableGems = 0;
-        public int PlayableGems
-        {
-            get => playableGems;
-            set
-            {
-                if (value < 0) { playableGems = 0; }
-                else { playableGems = value; }
-            }
-        }
-
 
         private void Awake()
         {
@@ -31,10 +33,15 @@ namespace LeapLord
             }
             tag = Tags.PLAYER_MANAGER_SINGLETON;
             DontDestroyOnLoad(this);
+
+            InputHandler.OnDropGemPressed += DropGem;
+            InputHandler.OnTeleportPressed += TeleportToCheckpoint;
+
         }
 
         void Start()
         {
+            staticCheckpointPrefab = checkpointPrefab;
             player = GetPlayer();
         }
         void Update()
@@ -52,7 +59,7 @@ namespace LeapLord
             }
         }
 
-        private Player? GetPlayer()
+        private static Player? GetPlayer()
         {
             GameObject playerGO = GameObject.FindGameObjectWithTag(Tags.PLAYER_SINGLETON);
             if (playerGO.GetComponent<Player>() != null)
@@ -60,6 +67,60 @@ namespace LeapLord
                 return playerGO.GetComponent<Player>();
             }
             return null;
+        }
+
+        public static void CollectGem()
+        {
+            if (gems + 1 > MAX_GEMS) { return; }
+            gems += 1;
+            Debug.Log($"You got a gem! You now have {gems}");
+        }
+
+        private static void DropGem()
+        {
+            if (gems <= 0)
+            {
+                Debug.Log("You got no gems :(");
+                return;
+            }
+
+            if (player == null) { player = GetPlayer(); }
+            if (player == null) { return;  }
+
+            gems -= 1;
+            checkpointsDropped += 1;
+            lastCheckpointPos = player.transform.position;
+
+
+            GameObject[] checkpointMarkers = GameObject.FindGameObjectsWithTag(Tags.CHECKPOINT);
+            foreach (GameObject cm in checkpointMarkers)
+            {
+                cm.gameObject.SetActive(false);
+            }
+
+
+            GameObject newCheckpoint = Instantiate(staticCheckpointPrefab);
+            newCheckpoint.tag = Tags.CHECKPOINT;
+            newCheckpoint.transform.position = player.transform.position;
+            newCheckpoint.gameObject.SetActive(true);
+
+
+
+        }
+
+        public static void TeleportToCheckpoint()
+        {
+            if (player == null) { player = GetPlayer(); }
+            if (player == null) { return; }
+
+            if (checkpointsDropped <= 0)
+            {
+                Debug.Log("No checkpoints dropped");
+                return;
+            }
+
+            //Vector3 newPlayerPos = new Vector3(player.transform.position.x, lastCheckpointY, player.transform.position.z);
+            player.transform.position = lastCheckpointPos;
         }
     }
 }

@@ -5,13 +5,18 @@ namespace LeapLord
 {
     public class InputHandler : MonoBehaviour
     {
+        private const float DAMP = 0.25f;
 
         public static event System.Action<float> OnMoveXChanged;
         public static event System.Action OnJumpPressed;
         public static event System.Action OnJumpReleased;
+        public static event System.Action OnDropGemPressed;
+        public static event System.Action OnTeleportPressed;
+
         public static event System.Action OnTestButtonPressed;
 
         private float _moveX = 0.0f;
+        private bool pressedInputsDampened = false;
 
         private float moveX
         {
@@ -65,24 +70,47 @@ namespace LeapLord
 
             moveX = moveRight + moveLeft;
 
+
+
+
             if (myKB.spaceKey.wasPressedThisFrame)
             {
                 OnJumpPressed?.Invoke();
+                StartCoroutine(DampenPressedInputs());
             }
 
             if (myKB.spaceKey.wasReleasedThisFrame)
             {
                 OnJumpReleased?.Invoke();
+                StartCoroutine(DampenPressedInputs());
             }
 
             if (myKB.tKey.wasPressedThisFrame)
             {
                 OnTestButtonPressed?.Invoke();
+                StartCoroutine(DampenPressedInputs());
+            }
+
+            if (myKB.eKey.wasPressedThisFrame)
+            {
+                OnDropGemPressed?.Invoke();
+                StartCoroutine(DampenPressedInputs());
+            }
+
+            if (myKB.qKey.wasPressedThisFrame)
+            {
+                OnTeleportPressed?.Invoke();
+                StartCoroutine(DampenPressedInputs());
             }
 
         }
 
-
+        private System.Collections.IEnumerator DampenPressedInputs()
+        {
+            pressedInputsDampened = true;
+            yield return new WaitForSeconds(DAMP);
+            pressedInputsDampened = false;
+        }
 
 
     }

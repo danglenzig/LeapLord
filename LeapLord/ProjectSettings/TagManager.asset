@@ -9,6 +9,7 @@ TagManager:
   - Landable
   - SingletonsFloatTween
   - SingletonsPlayerManager
+  - Checkpoint
   layers:
   - Default
   - TransparentFX

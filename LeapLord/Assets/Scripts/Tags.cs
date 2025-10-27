@@ -7,7 +7,9 @@ namespace LeapLord
         public const string PLAYER_SINGLETON = "SingletonsPlayer";
         public const string FLOAT_TWEEN_SINGLETON = "SingletonsFloatTween";
         public const string LANDABLE = "Landable";
-        public const string PLAYER_MANAGER_SINGLETON = "SingletonsPlayerManager"; 
+        public const string PLAYER_MANAGER_SINGLETON = "SingletonsPlayerManager";
+
+        public const string CHECKPOINT = "Checkpoint";
     }
 }
 
