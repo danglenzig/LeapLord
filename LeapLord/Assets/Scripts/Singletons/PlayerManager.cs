@@ -29,7 +29,7 @@ namespace LeapLord
         {
             if (GameObject.FindGameObjectsWithTag(Tags.PLAYER_MANAGER_SINGLETON).Length > 0)
             {
-                Destroy(this);
+                Destroy(gameObject);
             }
             tag = Tags.PLAYER_MANAGER_SINGLETON;
             DontDestroyOnLoad(this);

@@ -1291,6 +1291,50 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 804641377}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1112043289
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1112043291}
+  - component: {fileID: 1112043290}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1112043290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1112043289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f3c00315f941ee4ebb56f442594bb48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LeapLord.InputHandler
+--- !u!4 &1112043291
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1112043289}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.17, y: -0.245, z: 2.13}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1125801885
 GameObject:
   m_ObjectHideFlags: 0
@@ -2502,6 +2546,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5223068124953181618, guid: 842e904769d3c5a46bcae1a86cce67fd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6032382963089113512, guid: 842e904769d3c5a46bcae1a86cce67fd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.17
@@ -2542,6 +2590,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6115813476202805114, guid: 842e904769d3c5a46bcae1a86cce67fd, type: 3}
+      propertyPath: teleportEffect
+      value: 
+      objectReference: {fileID: 3948184316075970728}
     - target: {fileID: 8977645437468594660, guid: 842e904769d3c5a46bcae1a86cce67fd, type: 3}
       propertyPath: m_Name
       value: Player
@@ -2622,3 +2674,4 @@ SceneRoots:
   - {fileID: 4025048894819821189}
   - {fileID: 241600794}
   - {fileID: 1784911580}
+  - {fileID: 1112043291}

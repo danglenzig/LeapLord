@@ -13,18 +13,13 @@ namespace LeapLord
 
         [SerializeField] private SimpleStateMachine psm;
         [HideInInspector] public SimpleStateMachine Psm { get => psm; }
-
-        
         [SerializeField] private JumpStrengthProgressBar progressBar;
         [HideInInspector] public JumpStrengthProgressBar ProgressBar { get => progressBar; }
-
         [SerializeField] private QuadSpriteAnimator spriteQuad;
         [HideInInspector] public QuadSpriteAnimator SpriteQuad { get => spriteQuad; }
-
         [SerializeField] private StateHandlers stateHandlers;
         [SerializeField] private LayerMask groundLayer;
-
-        [SerializeField] private GameObject teleportEffectPrefab;
+        [SerializeField] private TeleportEffect teleportEffect;
 
         [Header("States")]
         [SerializeField] private State parkedState;
@@ -36,16 +31,12 @@ namespace LeapLord
         [Header("Transitions")]
         [SerializeField] private StateTransition toParkedTransition;
         [HideInInspector] public StateTransition ToParkedTransition { get => toParkedTransition; }
-
         [SerializeField] private StateTransition toIdleTransition;
         [HideInInspector] public StateTransition ToIdleTransition { get => toIdleTransition; }
-
         [SerializeField] private StateTransition toWalkTransition;
         [HideInInspector] public StateTransition ToWalkTransition { get => toWalkTransition; }
-
         [SerializeField] private StateTransition toJumpPrepTransition;
         [HideInInspector] public StateTransition ToJumpPrepTransition { get => toJumpPrepTransition; }
-
         [SerializeField] private StateTransition toAirborneTransition;
         [HideInInspector] public StateTransition ToAirborneTransition { get => toAirborneTransition; }
         
@@ -85,7 +76,6 @@ namespace LeapLord
                 Destroy(this);
             }
             gameObject.tag = Tags.PLAYER_SINGLETON;
-            //DontDestroyOnLoad(this);
 
             // EVENT CONNECTIONS //
             InputHandler.OnMoveXChanged += (_value) => { moveInputX = _value; };
@@ -103,13 +93,12 @@ namespace LeapLord
             walkState.OnStateExited += HandleOnStateExited;
             jumpPrepState.OnStateExited += HandleOnStateExited;
             airborneState.OnStateExited += HandleOnStateExited;
-
             spriteQuad.OnAnimFinished += HandleAnimationFinished;
-
         }
 
         private void Start()
         {
+            teleportEffect.gameObject.SetActive(false);
             rb = GetComponent<Rigidbody>();
             psm.SendEventString(toIdleTransition.EventString);
             stateHandlers.player = this; // the stateHandlers script calls SetIsReady after it creates its dependencies

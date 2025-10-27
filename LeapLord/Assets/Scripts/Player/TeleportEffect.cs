@@ -16,7 +16,11 @@ namespace LeapLord
         {
             mat = GetComponent<Renderer>().material;
             LoadFrames(framesFolder);
-            StartCoroutine(Test());
+        }
+
+        private void OnEnable()
+        {
+            Play();
         }
 
         public void Play()
