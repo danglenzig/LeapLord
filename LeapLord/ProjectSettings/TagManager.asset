@@ -10,6 +10,7 @@ TagManager:
   - SingletonsFloatTween
   - SingletonsPlayerManager
   - Checkpoint
+  - SingletonsGameManager
   layers:
   - Default
   - TransparentFX

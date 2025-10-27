@@ -22,7 +22,7 @@ namespace LeapLord
         //private static List<Transform> checkpointTransforms;
         private static int gems = 0;
 
-        private static Player player;
+        private static Player? player;
         private float timeAccumulator = 0.0f;
 
         private void Awake()
@@ -46,6 +46,7 @@ namespace LeapLord
         }
         void Update()
         {
+            //return;
             timeAccumulator += Time.deltaTime;
             if (timeAccumulator < POLLING_INTERVAL) { return; }
             timeAccumulator = 0.0f;
@@ -62,6 +63,7 @@ namespace LeapLord
         private static Player? GetPlayer()
         {
             GameObject playerGO = GameObject.FindGameObjectWithTag(Tags.PLAYER_SINGLETON);
+            if (playerGO == null) { return null; }
             if (playerGO.GetComponent<Player>() != null)
             {
                 return playerGO.GetComponent<Player>();

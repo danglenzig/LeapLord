@@ -83,7 +83,7 @@ namespace LeapLord
                 Destroy(this);
             }
             gameObject.tag = Tags.PLAYER_SINGLETON;
-            DontDestroyOnLoad(this);
+            //DontDestroyOnLoad(this);
 
             // EVENT CONNECTIONS //
             InputHandler.OnMoveXChanged += (_value) => { moveInputX = _value; };
