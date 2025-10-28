@@ -7,6 +7,8 @@ namespace LeapLord
         {
             base.HandleOnEnter();
             if (player == null) return;
+            playerRB.isKinematic = true;
+            player.SpriteQuad.Play(EnumLeoAnimations.PARKED);
         }
         public override void HandleOnExit()
         {

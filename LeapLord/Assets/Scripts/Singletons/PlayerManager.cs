@@ -122,8 +122,19 @@ namespace LeapLord
             }
 
             //Vector3 newPlayerPos = new Vector3(player.transform.position.x, lastCheckpointY, player.transform.position.z);
-            player.transform.position = lastCheckpointPos;
+            //player.transform.position = lastCheckpointPos;
+            //player.Psm.SendEventString(player.ToIdleTransition.EventString);
+
+            player.TeleportToPosition(lastCheckpointPos);
+
         }
+
+        //private static System.Collections.IEnumerator WaitThenDeactivateTeleportEffect(Player _player, float _delay)
+        //{
+        //    yield return new WaitForSeconds(_delay);
+        //    player.ActivateTeleportEffect(false);
+        //}
+
     }
 }
 

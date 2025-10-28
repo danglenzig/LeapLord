@@ -7,7 +7,8 @@ namespace LeapLord
         IDLE,
         JUMP_PREP,
         JUMP_UP,
-        AIRBORNE
+        AIRBORNE,
+        PARKED
     }
 }
 

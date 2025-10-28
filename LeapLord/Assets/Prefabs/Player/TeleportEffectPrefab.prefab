@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7061692869279593564}
   - component: {fileID: 6067621636707920941}
   - component: {fileID: 8952862971410670964}
+  - component: {fileID: 2543702149982718202}
   m_Layer: 0
   m_Name: TeleportEffectPrefab
   m_TagString: Untagged
@@ -89,3 +90,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &2543702149982718202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 624552983544681790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d6bf21b3030310458e6a44359f79cc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LeapLord.TeleportEffect
+  framesFolder: SpriteFrames/TeleportEffect
+  frameRate: 3

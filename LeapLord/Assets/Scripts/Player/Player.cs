@@ -98,10 +98,13 @@ namespace LeapLord
 
         private void Start()
         {
+            //ActivateTeleportEffect(false);
             teleportEffect.gameObject.SetActive(false);
             rb = GetComponent<Rigidbody>();
             psm.SendEventString(toIdleTransition.EventString);
             stateHandlers.player = this; // the stateHandlers script calls SetIsReady after it creates its dependencies
+            Vector3 pos = transform.position;
+            TeleportToPosition(pos);
         }
         
         private void Update()
@@ -208,7 +211,7 @@ namespace LeapLord
             switch (enteredState.StateName)
             {
                 case PlayerStateNames.PARKED:
-                    //stateHandlers.ParkedHandler.HandleOnEnter();
+                    stateHandlers.ParkedHandler.HandleOnEnter();
                     return;
                 case PlayerStateNames.IDLE:
                     stateHandlers.IdleHandler.HandleOnEnter();
@@ -254,6 +257,29 @@ namespace LeapLord
             }
         }
 
+        public void TeleportToPosition(Vector3 pos)
+        {
+            Psm.SendEventString(ToParkedTransition.EventString);
+            teleportEffect.gameObject.SetActive(true);
+            teleportEffect.Play();
+            StartCoroutine(WaitThenReappear(0.5f, pos));
+            //transform.position = pos;
+            //Psm.SendEventString(ToIdleTransition.EventString);
+        }
+
+        private System.Collections.IEnumerator WaitThenReappear(float _delay, Vector3 pos)
+        {
+            yield return new WaitForSeconds(_delay);
+            transform.position = pos;
+            //teleportEffect.Play();
+            Psm.SendEventString(ToIdleTransition.EventString);
+            teleportEffect.Play();
+            yield return new WaitForSeconds(0.5f);
+            teleportEffect.gameObject.SetActive(false);
+
+        }
+        
+
         private void HandleAnimationFinished(EnumLeoAnimations leoAnim)
         {
             switch (leoAnim)
@@ -271,6 +297,12 @@ namespace LeapLord
         {
             _isReady = val;
         }
+
+        //private System.Collections.IEnumerator WaitThenDeactivateTeleportEffect(float _delay)
+        //{
+        //    yield return new WaitForSeconds(_delay);
+        //    teleportEffect.gameObject.SetActive(false);
+        //}
     }
 }
 

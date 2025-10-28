@@ -16,6 +16,7 @@ namespace LeapLord
         [SerializeField] private string idleFramesFolder = "SpriteFrames/LeoIdle";
         [SerializeField] private string airborneFramesFolder = "SpriteFrames/LeoAirborne";
         [SerializeField] private string jumpPrepFramesFolder = "SpriteFrames/LeoJumpPrep";
+        [SerializeField] private string parkedFramesFolder = "SpriteFrames/LeoParked";
         [Range(1.0f, 60.0f)][SerializeField] private float frameRate = 10.0f;
 
         private Texture2D[] frames;
@@ -60,28 +61,33 @@ namespace LeapLord
                     currentLeoAnimation = EnumLeoAnimations.IDLE;
                     LoadFrames(idleFramesFolder);
                     StartCoroutine(PlayLoopingAnimation());
-                    break;
+                    return;
                 case EnumLeoAnimations.WALK:
                     currentLeoAnimation = EnumLeoAnimations.WALK;
                     LoadFrames(walkFramesFolder);
                     StartCoroutine(PlayLoopingAnimation());
-                    break;
+                    return;
                 case EnumLeoAnimations.JUMP_PREP:
                     currentLeoAnimation = EnumLeoAnimations.JUMP_PREP;
                     LoadFrames(jumpPrepFramesFolder);
                     StartCoroutine(PlayOneShotAnimation());
-                    break;
+                    return;
                 case EnumLeoAnimations.JUMP_UP:
                     currentLeoAnimation = EnumLeoAnimations.JUMP_UP;
                     LoadFrames(jumpUpFramesFolder);
                     StartCoroutine(PlayOneShotAnimation());
-                    break;
+                    return;
                 case EnumLeoAnimations.AIRBORNE:
                     currentLeoAnimation = EnumLeoAnimations.AIRBORNE;
                     //LoadFrames(airborneFramesFolder);
                     LoadOneRandomFrameFromFolder(airborneFramesFolder);
                     StartCoroutine(PlayLoopingAnimation());
-                    break;
+                    return;
+                case EnumLeoAnimations.PARKED:
+                    currentLeoAnimation = EnumLeoAnimations.PARKED;
+                    LoadFrames(parkedFramesFolder);
+                    StartCoroutine(PlayOneShotAnimation());
+                    return;
                 default:
                     Debug.Log($"Invalid animation: {_anim}");
                     return;
