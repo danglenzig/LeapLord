@@ -17,8 +17,13 @@ namespace LeapLord
         [SerializeField] private Button aboutButton;
         [SerializeField] private Button quitButton;
 
+        [SerializeField] private NarrationUI narrationUI;
+
         private void Awake()
         {
+
+            NarrationData.BuildNarrations();
+
             if (GameObject.FindGameObjectsWithTag(Tags.GAME_MANAGER_SINGLETON).Length > 0)
             {
                 Destroy(gameObject);
@@ -28,19 +33,28 @@ namespace LeapLord
             DontDestroyOnLoad(mainCanvas);
             DontDestroyOnLoad(eventSystem);
 
+            NarrationUI.OnNarrationFinished += HandleOnNarrationFinished;
+
+
         }
 
         private void Start()
         {
             mainMenuPanel.gameObject.SetActive(true);
+            //narrationUI.gameObject.SetActive(true);
+            //narrationUI.StartNarration(NarrationData.OpeningNarration);
         }
 
         public void OnStartButtonPressed()
         {
             ResetButtons();
             mainMenuPanel.gameObject.SetActive(false);
-            hudPanel.gameObject.SetActive(true);
-            SceneManager.LoadScene(SceneNames.LAB);
+            narrationUI.gameObject.SetActive(true);
+            narrationUI.StartNarration(NarrationData.OpeningNarration);
+
+            //mainMenuPanel.gameObject.SetActive(false);
+            //hudPanel.gameObject.SetActive(true);
+            //SceneManager.LoadScene(SceneNames.LAB);
         }
 
         private void ResetButtons()
@@ -67,6 +81,29 @@ namespace LeapLord
 
         private void HandleOnPointerEnterButton()
         {
+
+        }
+
+        private void HandleOnNarrationFinished(string narrationName)
+        {
+            // temp logic
+            //narrationUI.gameObject.SetActive(false);
+
+            switch (narrationName)
+            {
+                case NarrationNames.OPENING_NARRATION:
+
+                    Debug.Log($"{narrationName} complete!");
+                    narrationUI.gameObject.SetActive(false);
+                    hudPanel.gameObject.SetActive(true);
+                    SceneManager.LoadScene(SceneNames.LAB);
+
+                    return;
+                case NarrationNames.CLOSING_NARRATION:
+                    return;
+            }
+
+
 
         }
 
