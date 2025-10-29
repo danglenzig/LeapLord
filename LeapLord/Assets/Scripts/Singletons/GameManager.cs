@@ -18,6 +18,27 @@ namespace LeapLord
         [SerializeField] private Button quitButton;
 
         [SerializeField] private NarrationUI narrationUI;
+        [SerializeField] private TutorialUI tutorialUI;
+
+        [SerializeField] private bool skipIntro = false;
+
+        private bool _isPaused = false;
+        private bool isPaused
+        {
+            get => _isPaused;
+            set
+            {
+                _isPaused = value;
+                if (_isPaused)
+                {
+                    DisplayTutorial();
+                }
+                else
+                {
+                    HideTutorial();
+                }
+            }
+        }
 
         private void Awake()
         {
@@ -34,15 +55,13 @@ namespace LeapLord
             DontDestroyOnLoad(eventSystem);
 
             NarrationUI.OnNarrationFinished += HandleOnNarrationFinished;
-
+            InputHandler.OnPausePressed += HandleOnPausePressed;
 
         }
 
         private void Start()
         {
             mainMenuPanel.gameObject.SetActive(true);
-            //narrationUI.gameObject.SetActive(true);
-            //narrationUI.StartNarration(NarrationData.OpeningNarration);
         }
 
         public void OnStartButtonPressed()
@@ -50,11 +69,17 @@ namespace LeapLord
             ResetButtons();
             mainMenuPanel.gameObject.SetActive(false);
             narrationUI.gameObject.SetActive(true);
-            narrationUI.StartNarration(NarrationData.OpeningNarration);
 
-            //mainMenuPanel.gameObject.SetActive(false);
-            //hudPanel.gameObject.SetActive(true);
-            //SceneManager.LoadScene(SceneNames.LAB);
+            if (skipIntro == false)
+            {
+                narrationUI.StartNarration(NarrationData.OpeningNarration);
+            }
+            else
+            {
+                HandleOnNarrationFinished(NarrationNames.OPENING_NARRATION);
+            }
+
+            
         }
 
         private void ResetButtons()
@@ -66,7 +91,6 @@ namespace LeapLord
             startBS.ResetButtonText();
             aboutBS.ResetButtonText();
             quitBS.ResetButtonText();
-
         }
 
         public void OnAboutButtonPressed()
@@ -86,9 +110,6 @@ namespace LeapLord
 
         private void HandleOnNarrationFinished(string narrationName)
         {
-            // temp logic
-            //narrationUI.gameObject.SetActive(false);
-
             switch (narrationName)
             {
                 case NarrationNames.OPENING_NARRATION:
@@ -97,15 +118,57 @@ namespace LeapLord
                     narrationUI.gameObject.SetActive(false);
                     hudPanel.gameObject.SetActive(true);
                     SceneManager.LoadScene(SceneNames.LAB);
-
                     return;
+
                 case NarrationNames.CLOSING_NARRATION:
                     return;
             }
-
-
-
         }
+
+        private Player? GetPlayer()
+        {
+            GameObject? playerGO = GameObject.FindGameObjectWithTag(Tags.PLAYER_SINGLETON);
+            if (playerGO == null) { return null; }
+
+            Player? _player = playerGO.GetComponent<Player>();
+            if (_player != null) { return _player; }
+
+            return null;
+        }
+
+        private void HandleOnPausePressed()
+        {
+            if (GetPlayer() == null) { return; }
+            isPaused = !isPaused;
+        }
+
+        public void HandleOnCloseTutorialPressed()
+        {
+            if (GetPlayer() == null) { return; }
+            isPaused = false;
+        }
+
+        private void HideTutorial()
+        {
+            tutorialUI.gameObject.SetActive(false);
+            Player? player = GetPlayer();
+            if (player != null)
+            {
+                player.UnPark();
+            }
+        }
+
+        private void DisplayTutorial()
+        {
+            tutorialUI.gameObject.SetActive(true);
+            Player? player = GetPlayer();
+            if (player != null)
+            {
+                player.Park();
+            }
+        }
+
+        
 
 
 

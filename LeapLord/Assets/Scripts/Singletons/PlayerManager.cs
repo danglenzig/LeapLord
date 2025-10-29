@@ -93,21 +93,16 @@ namespace LeapLord
             checkpointsDropped += 1;
             lastCheckpointPos = player.transform.position;
 
-
             GameObject[] checkpointMarkers = GameObject.FindGameObjectsWithTag(Tags.CHECKPOINT);
             foreach (GameObject cm in checkpointMarkers)
             {
                 cm.gameObject.SetActive(false);
             }
 
-
             GameObject newCheckpoint = Instantiate(staticCheckpointPrefab);
             newCheckpoint.tag = Tags.CHECKPOINT;
             newCheckpoint.transform.position = player.transform.position;
             newCheckpoint.gameObject.SetActive(true);
-
-
-
         }
 
         public static void TeleportToCheckpoint()

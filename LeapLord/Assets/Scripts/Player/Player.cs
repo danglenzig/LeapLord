@@ -263,8 +263,6 @@ namespace LeapLord
             teleportEffect.gameObject.SetActive(true);
             teleportEffect.Play();
             StartCoroutine(WaitThenReappear(0.5f, pos));
-            //transform.position = pos;
-            //Psm.SendEventString(ToIdleTransition.EventString);
         }
 
         private System.Collections.IEnumerator WaitThenReappear(float _delay, Vector3 pos)
@@ -298,11 +296,18 @@ namespace LeapLord
             _isReady = val;
         }
 
-        //private System.Collections.IEnumerator WaitThenDeactivateTeleportEffect(float _delay)
-        //{
-        //    yield return new WaitForSeconds(_delay);
-        //    teleportEffect.gameObject.SetActive(false);
-        //}
+        public void Park()
+        {
+            if (psm.CurrentState == parkedState) { return;  }
+            psm.SendEventString(toParkedTransition.EventString);
+        }
+
+        public void UnPark()
+        {
+            if (psm.CurrentState != parkedState) { return; }
+            psm.SendEventString(toIdleTransition.EventString);
+            
+        }
     }
 }
 

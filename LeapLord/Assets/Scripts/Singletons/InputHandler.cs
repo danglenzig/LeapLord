@@ -12,6 +12,7 @@ namespace LeapLord
         public static event System.Action OnJumpReleased;
         public static event System.Action OnDropGemPressed;
         public static event System.Action OnTeleportPressed;
+        public static event System.Action OnPausePressed;
 
         public static event System.Action OnTestButtonPressed;
 
@@ -67,7 +68,6 @@ namespace LeapLord
             {
                 moveLeft = 0.0f;
             }
-
             moveX = moveRight + moveLeft;
 
 
@@ -77,30 +77,42 @@ namespace LeapLord
             {
                 OnJumpPressed?.Invoke();
                 StartCoroutine(DampenPressedInputs());
+                return;
             }
 
             if (myKB.spaceKey.wasReleasedThisFrame)
             {
                 OnJumpReleased?.Invoke();
                 StartCoroutine(DampenPressedInputs());
+                return;
             }
 
             if (myKB.tKey.wasPressedThisFrame)
             {
                 OnTestButtonPressed?.Invoke();
                 StartCoroutine(DampenPressedInputs());
+                return;
             }
 
             if (myKB.eKey.wasPressedThisFrame)
             {
                 OnDropGemPressed?.Invoke();
                 StartCoroutine(DampenPressedInputs());
+                return;
             }
 
             if (myKB.qKey.wasPressedThisFrame)
             {
                 OnTeleportPressed?.Invoke();
                 StartCoroutine(DampenPressedInputs());
+                return;
+            }
+
+            if (myKB.escapeKey.wasPressedThisFrame)
+            {
+                OnPausePressed?.Invoke();
+                StartCoroutine(DampenPressedInputs());
+                return;
             }
 
         }
