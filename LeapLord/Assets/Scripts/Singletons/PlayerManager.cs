@@ -56,7 +56,7 @@ namespace LeapLord
             if (player.transform.position.y > highestPlayerY)
             {
                 highestPlayerY = player.transform.position.y;
-                Debug.Log(highestPlayerY);
+                //Debug.Log(highestPlayerY);
             }
         }
 

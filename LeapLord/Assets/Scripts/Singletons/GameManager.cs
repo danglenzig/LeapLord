@@ -33,13 +33,7 @@ namespace LeapLord
         private void Start()
         {
             mainMenuPanel.gameObject.SetActive(true);
-            
-            
-
         }
-
-
-        
 
         public void OnStartButtonPressed()
         {

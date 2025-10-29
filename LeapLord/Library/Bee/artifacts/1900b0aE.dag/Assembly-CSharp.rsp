@@ -445,6 +445,8 @@
 "Assets/Scripts/StateMachine/State.cs"
 "Assets/Scripts/StateMachine/StateTransition.cs"
 "Assets/Scripts/UI/ButtonScript.cs"
+"Assets/Scripts/UI/NarrationData.cs"
+"Assets/Scripts/UI/NarrationUI.cs"
 -langversion:9.0
 /deterministic
 /optimize+

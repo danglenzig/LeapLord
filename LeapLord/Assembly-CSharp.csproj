@@ -72,6 +72,7 @@
     <Compile Include="Assets\Scripts\Helpers\EnumLeoAnimations.cs" />
     <Compile Include="Assets\Scripts\Player\IdleStateHandler.cs" />
     <Compile Include="Assets\Scripts\Singletons\PlayerManager.cs" />
+    <Compile Include="Assets\Scripts\UI\NarrationData.cs" />
     <Compile Include="Assets\Scripts\Misc\FloatTweener.cs" />
     <Compile Include="Assets\Scripts\Singletons\InputHandler.cs" />
     <Compile Include="Assets\Scripts\Player\JumpPrepStateHandler.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="Assets\Scripts\Player\TeleportEffect.cs" />
     <Compile Include="Assets\Scripts\Misc\Oscillator.cs" />
     <Compile Include="Assets\Scripts\StateMachine\SimpleStateMachine.cs" />
+    <Compile Include="Assets\Scripts\UI\NarrationUI.cs" />
     <Compile Include="Assets\Scripts\UI\ButtonScript.cs" />
     <Compile Include="Assets\Scripts\Helpers\Tags.cs" />
     <Compile Include="Assets\Scripts\Player\JumpStrengthProgressBar.cs" />

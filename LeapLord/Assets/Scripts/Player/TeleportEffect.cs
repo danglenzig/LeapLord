@@ -38,7 +38,7 @@ namespace LeapLord
                 frames[i] = (Texture2D)loaded[i];
             }
 
-            Debug.Log(frames.Length);
+            //Debug.Log(frames.Length);
 
         }
 
@@ -63,7 +63,7 @@ namespace LeapLord
                     else
                     {
 
-                        Debug.Log(currentFrame);
+                        //Debug.Log(currentFrame);
 
                         //not the last frame
                         yield return new WaitForSeconds(1 / frameRate);
