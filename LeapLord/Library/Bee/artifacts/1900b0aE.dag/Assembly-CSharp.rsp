@@ -448,6 +448,7 @@
 "Assets/Scripts/UI/ButtonScript.cs"
 "Assets/Scripts/UI/NarrationData.cs"
 "Assets/Scripts/UI/NarrationUI.cs"
+"Assets/Scripts/UI/TutorialData.cs"
 "Assets/Scripts/UI/TutorialUI.cs"
 -langversion:9.0
 /deterministic

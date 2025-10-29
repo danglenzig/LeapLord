@@ -71,6 +71,7 @@
     <Compile Include="Assets\Scripts\Player\QuadSpriteAnimator.cs" />
     <Compile Include="Assets\Scripts\Collectibles\CheckpointGem.cs" />
     <Compile Include="Assets\Scripts\Helpers\EnumLeoAnimations.cs" />
+    <Compile Include="Assets\Scripts\UI\TutorialData.cs" />
     <Compile Include="Assets\Scripts\Player\IdleStateHandler.cs" />
     <Compile Include="Assets\Scripts\UI\TutorialUI.cs" />
     <Compile Include="Assets\Scripts\Singletons\PlayerManager.cs" />

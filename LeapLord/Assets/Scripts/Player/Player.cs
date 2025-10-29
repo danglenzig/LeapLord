@@ -105,6 +105,12 @@ namespace LeapLord
             stateHandlers.player = this; // the stateHandlers script calls SetIsReady after it creates its dependencies
             Vector3 pos = transform.position;
             TeleportToPosition(pos);
+
+            if (PlayerManager.IsNew == false)
+            {
+                HandleContinue();
+                return;
+            }
         }
         
         private void Update()
@@ -138,6 +144,11 @@ namespace LeapLord
                 default:
                     return;
             }
+        }
+
+        private void HandleContinue()
+        {
+            // TODO teleport to the right position, etc.
         }
 
         public bool IsGrounded()
@@ -290,6 +301,8 @@ namespace LeapLord
                     return;
             }
         }
+
+        
 
         public void SetIsReady(bool val)
         {

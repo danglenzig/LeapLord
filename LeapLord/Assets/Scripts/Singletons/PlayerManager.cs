@@ -4,6 +4,7 @@ namespace LeapLord
 {
     public class PlayerManager : MonoBehaviour
     {
+        public static event System.Action<bool> OnIsNewChanged;
 
         private const float POLLING_INTERVAL = 0.5f;
         private const int MAX_GEMS = 3;
@@ -14,16 +15,28 @@ namespace LeapLord
 
 
         private static float highestPlayerY = 0.0f;
-
         private static float lastCheckpointY = 0.0f;
         private static Vector3 lastCheckpointPos = Vector3.zero;
         
         private static int checkpointsDropped = 0;
-        //private static List<Transform> checkpointTransforms;
         private static int gems = 0;
 
         private static Player? player;
         private float timeAccumulator = 0.0f;
+
+        private static bool isNew = true;
+        public static bool IsNew
+        {
+            get => isNew;
+            set
+            {
+                if (value != isNew)
+                {
+                    isNew = value;
+                    OnIsNewChanged?.Invoke(isNew);
+                }
+            }
+        }
 
         private void Awake()
         {
@@ -46,7 +59,6 @@ namespace LeapLord
         }
         void Update()
         {
-            //return;
             timeAccumulator += Time.deltaTime;
             if (timeAccumulator < POLLING_INTERVAL) { return; }
             timeAccumulator = 0.0f;
@@ -56,7 +68,6 @@ namespace LeapLord
             if (player.transform.position.y > highestPlayerY)
             {
                 highestPlayerY = player.transform.position.y;
-                //Debug.Log(highestPlayerY);
             }
         }
 
@@ -116,20 +127,9 @@ namespace LeapLord
                 return;
             }
 
-            //Vector3 newPlayerPos = new Vector3(player.transform.position.x, lastCheckpointY, player.transform.position.z);
-            //player.transform.position = lastCheckpointPos;
-            //player.Psm.SendEventString(player.ToIdleTransition.EventString);
-
             player.TeleportToPosition(lastCheckpointPos);
 
         }
-
-        //private static System.Collections.IEnumerator WaitThenDeactivateTeleportEffect(Player _player, float _delay)
-        //{
-        //    yield return new WaitForSeconds(_delay);
-        //    player.ActivateTeleportEffect(false);
-        //}
-
     }
 }
 

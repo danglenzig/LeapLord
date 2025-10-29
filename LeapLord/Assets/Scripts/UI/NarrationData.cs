@@ -34,7 +34,6 @@ namespace LeapLord
         {
             narrationName = _narrationName;
             lines = _lines;
-            //useBackground = _useBackground;
         }
 
     }

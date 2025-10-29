@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 namespace LeapLord
 {
@@ -44,6 +45,7 @@ namespace LeapLord
         {
 
             NarrationData.BuildNarrations();
+            TutorialData.BuildTutorial();
 
             if (GameObject.FindGameObjectsWithTag(Tags.GAME_MANAGER_SINGLETON).Length > 0)
             {
@@ -61,6 +63,7 @@ namespace LeapLord
 
         private void Start()
         {
+            HandleIsNewChanged(PlayerManager.IsNew);
             mainMenuPanel.gameObject.SetActive(true);
         }
 
@@ -78,8 +81,6 @@ namespace LeapLord
             {
                 HandleOnNarrationFinished(NarrationNames.OPENING_NARRATION);
             }
-
-            
         }
 
         private void ResetButtons()
@@ -118,6 +119,14 @@ namespace LeapLord
                     narrationUI.gameObject.SetActive(false);
                     hudPanel.gameObject.SetActive(true);
                     SceneManager.LoadScene(SceneNames.LAB);
+
+                    if (PlayerManager.IsNew)
+                    {
+                        // play tutorial
+                        PlayerManager.IsNew = false;
+                        StartCoroutine(WaitASecThenDisplayTutorial());
+                    }
+
                     return;
 
                 case NarrationNames.CLOSING_NARRATION:
@@ -148,9 +157,32 @@ namespace LeapLord
             isPaused = false;
         }
 
+        public void HandleOnMainMenuPressed()
+        {
+            //
+        }
+
+        private void HandleIsNewChanged(bool _isNew)
+        {
+            GameObject startButtonTextGO = startButton.transform.GetChild(0).gameObject;
+            TMP_Text startButtonText = startButtonTextGO.GetComponent<TMP_Text>();
+            if (_isNew == true)
+            {
+                startButtonText.text = "Start";
+            }
+            else
+            {
+                startButtonText.text = "Continue";
+                skipIntro = true;
+            }
+        }
+
         private void HideTutorial()
         {
+
+            tutorialUI.ResetTutorial();
             tutorialUI.gameObject.SetActive(false);
+
             Player? player = GetPlayer();
             if (player != null)
             {
@@ -161,6 +193,8 @@ namespace LeapLord
         private void DisplayTutorial()
         {
             tutorialUI.gameObject.SetActive(true);
+            tutorialUI.StartTutorial();
+
             Player? player = GetPlayer();
             if (player != null)
             {
@@ -168,11 +202,11 @@ namespace LeapLord
             }
         }
 
-        
-
-
-
-
+        private System.Collections.IEnumerator WaitASecThenDisplayTutorial()
+        {
+            yield return new WaitForSeconds(0.5f);
+            isPaused = true;
+        }
     }
 }
 
