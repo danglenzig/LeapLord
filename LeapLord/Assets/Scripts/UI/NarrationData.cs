@@ -58,7 +58,7 @@ namespace LeapLord
                 (
                     1,
                     "NarrationPortraits/Leo_03",
-                    "Hello world. I am the second line of opening narration"
+                    "Alas! Our crown is nowhere to be found. It is the material embodiment of our sovereign power and boundless virility! How can we face our filthy peasants without it? "
                 );
             List<NarrationLine> openingLines = new List<NarrationLine>();
             openingLines.Add(opening00);
