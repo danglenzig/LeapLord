@@ -194,7 +194,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 99
+  controlID: 60
   draggingID: 0
 --- !u!114 &9
 MonoBehaviour:
@@ -1141,7 +1141,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 0a890000
     m_LastClickedID: 35082
-    m_ExpandedIDs: 000000000a89000078890000
+    m_ExpandedIDs: 000000000a890000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
