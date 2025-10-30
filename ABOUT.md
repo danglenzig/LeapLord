@@ -10,12 +10,24 @@
 
 \- `Assets/Scenes/Lab.unity`: Gameplay level
 
+**External Tools**
+
+\- Adobe Fuse: 3D humanoid modeling
+
+\- Adobe Mixamo: Humanoid mocap animation
+
+\- Gimp: 2D image manipulation
+
+\- Visual Studio: Code editor (I had some trouble with the Rider integration, so I decided to stick with what I know for now)
+
+\- ChatGPT: Moral support, shameless sycophancy, and occasionally answering dumb questions
+
 ## Summary
 
 Leap Lord is a small, systems-focused recreation inspired by Jump King. The emphasis is on a single, polishable level and a single core mechanic: charging a jump and committing to its outcome. There is minimal or no mid-air control; skill comes from gauging charge strength and route planning.
 
 ### Inspiration
-Nexile's [Jump King](https://en.wikipedia.org/wiki/Jump_King) is a "tactical leaping adventure" that reduces platforming to its most essential, high-stakes component: a single, chargeable jump. Players must ascend a colossal vertical tower where the only mechanic involves precisely holding a button to gauge jump height and trajectory, with no air control to correct mistakes. This deliberate design means a single miscalculation can result in a punishing fall, potentially erasing hours of progress. Its core retro appeal lies in this unforgiving, "masocore" difficulty, demanding pure mastery and patience from the player in exchange for the immense satisfaction of each successful ascent.
+Nexile's [Jump King](https://en.wikipedia.org/wiki/Jump_King) is a "tactical leaping adventure" that reduces platforming to its most essential, high-stakes component: a single, chargeable jump. Players must ascend a colossal vertical tower where the only mechanic involves precisely holding a button to gauge jump height and trajectory, with no air control to correct mistakes. This deliberate design means a single miscalculation can result in a punishing fall, potentially erasing hours of progress. Its core retro appeal lies in this unforgiving, "maso-core" difficulty, demanding pure mastery and patience from the player in exchange for the immense satisfaction of each successful ascent.
 
 ---
 
