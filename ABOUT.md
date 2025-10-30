@@ -20,7 +20,7 @@
 
 \- Visual Studio: Code editor (I had some trouble with the Rider integration, so I decided to stick with what I know for now)
 
-\- ChatGPT: Moral support, shameless sycophancy, and occasionally answering dumb questions
+\- ChatGPT: Moral support, servile flattery, and occasionally answering dumb questions
 
 ## Summary
 
