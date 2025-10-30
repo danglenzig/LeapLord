@@ -34,13 +34,13 @@ Leap Lord is a small, systems-focused recreation inspired by Jump King. The emph
 
 \### 1) Input System
 
-\- \*\*Tech\*\*: Unity Input System (`Assets/InputSystem\_Actions.inputactions`).
+\- \*\*Tech\*\*: Unity Input System
 
-\- \*\*Runtime owner\*\*: `InputHandler` (singleton, also provided as a prefab).
+\- \*\*Runtime owner\*\*: `InputHandler` singleton
 
 \- \*\*Role\*\*: Centralizes player input actions (move, jump press/hold/release). Exposes a clean API to gameplay systems without scattering input logic across scripts.
 
-\- \*\*Prefabs/Scripts\*\*: `Assets/Prefabs/InputHandler.prefab`, `Assets/Scripts/Singletons/InputHandler.cs`.
+\- \*\*Script\*\*:`Assets/Scripts/Singletons/InputHandler.cs`.
 
 
 
@@ -50,7 +50,16 @@ Leap Lord is a small, systems-focused recreation inspired by Jump King. The emph
 
 \- \*\*State framework\*\*: `SimpleStateMachine`, `State`, `StateTransition`.
 
-\- \*\*Player states\*\*: `IdleStateHandler`, `WalkStateHandler`, `JumpPrepStateHandler` (charge), `AirborneStateHandler` (commit), `ParkedStateHandler`.
+\- \*\*Player state handlers\*\*: Govern the behavior of the player objects in the various states.
+\n`IdleStateHandler`, `WalkStateHandler`, `JumpPrepStateHandler` (charge jump), `AirborneStateHandler` (execute jump), `ParkedStateHandler` -- all inherit from the abstract class StateHandler and have override methods to deal with the various callbacks that govern gameplay.\n
+
+\nHandleOnEnter():
+\nHandleOnExit():
+\nHandleUpdate():
+\nHandleFixedUpdate():
+\nHandleJumpPressed():
+\nHandleJumpReleased():
+
 
 \- \*\*Key scripts\*\*: 
 
@@ -66,7 +75,7 @@ Leap Lord is a small, systems-focused recreation inspired by Jump King. The emph
 
 \### 3) Physics and Movement
 
-\- \*\*Physics\*\*: Rigidbody-based motion and collisions; materials configured for character and surfaces (e.g., `PlayerRBMat.mat`).
+\- \*\*Physics\*\*: Rigidbody-based motion and collisions; materials configured for character and surfaces.
 
 \- \*\*Forces\*\*: Impulse on jump start; gravity dominates during airborne. Friction/bounciness via physics materials as needed.
 
@@ -84,7 +93,7 @@ Leap Lord is a small, systems-focused recreation inspired by Jump King. The emph
 
 
 
-\### 5) Level Construction (Prefab-first)
+\### 5) Gameplay Environment
 
 \- \*\*Scenes\*\*: `Start.unity` (menu), `Lab.unity` (gameplay).
 
@@ -161,50 +170,6 @@ Leap Lord is a small, systems-focused recreation inspired by Jump King. The emph
 \- \*\*Motion utilities\*\*: `FloatTweener`, `Oscillator` for simple time-based effects.
 
 \- \*\*Scripts\*\*: `Assets/Scripts/Helpers/\*.cs`, `Assets/Scripts/Misc/\*.cs`.
-
-
-
----
-
-
-
-\## Assignment Requirements Mapping
-
-
-
-| Feature | How it’s addressed in this project |
-
-| --- | --- |
-
-| \*\*Player\*\* | Controllable via Input System; Rigidbody motion; state-driven jump/airborne/walk. |
-
-| \*\*Level\*\* | Prefab-based construction in `Lab.unity` with reusable prefabs (player, checkpoints, VFX, managers). |
-
-| \*\*Collectibles / Score\*\* | `CheckpointGem` for collectibles; score/progress managed by `GameManager` (and/or checkpoint logic). |
-
-| \*\*Basic UI\*\* | Jump charge bar (`JumpStrengthProgressBar`), menu buttons (`ButtonScript`), narration/tutorial panels. |
-
-| \*\*Start / Restart Menu\*\* | `Start.unity` scene; buttons wired to scene load/restart and exit. |
-
-| \*\*Scene Management\*\* | `Start.unity` (menu) and `Lab.unity` (gameplay); helpers in `SceneNames.cs`. |
-
-| \*\*Encapsulation \& Clean Code\*\* | State machine abstraction; singletons for cross-cutting concerns; helper enums; prefab-bound responsibilities. |
-
-| \*\*Prefab Usage\*\* | `Player`, `PlayerManager`, `InputHandler`, `Checkpoint`, `TeleportEffectPrefab`, and others. |
-
-
-
-\### Optional Stretch Goals Status
-
-\- \*\*Animations\*\*: Basic character/FX animation via `QuadSpriteAnimator` and VFX materials — implemented at a simple level.
-
-\- \*\*Enemy AI\*\*: Not included (focus is on platforming/jump mastery).
-
-\- \*\*Power-ups\*\*: Not included.
-
-\- \*\*Pause menu\*\*: Not included (start/restart flow present).
-
-\- \*\*Music/SFX\*\*: Not currently included.
 
 
 
