@@ -1065,9 +1065,6 @@ MonoBehaviour:
   stateName: PARKED
   transitions:
   - {fileID: 8944591795933475688}
-  - {fileID: 1131230210176800872}
-  - {fileID: 4671699191908755203}
-  - {fileID: 4887908292984183136}
 --- !u!1 &8509556647995404103
 GameObject:
   m_ObjectHideFlags: 0

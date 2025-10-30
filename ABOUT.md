@@ -44,6 +44,8 @@ Leap Lord is a small, systems-focused recreation inspired by Jump King. The emph
 
 \-`ParkedStateHandler`: When gameplay is paused and the pause/tutorial overlay UI is visible
 
+![Player State Diagram](./PLAYER_STATES.png)
+
 All inherit from the abstract class StateHandler. Each has override methods to deal with the various callbacks that govern gameplay: `HandleOnEnter()`, `HandleOnExit()`, `HandleOnExit()`, `HandleUpdate()`, `HandleFixedUpdate()`, `HandleJumpPressed()`, `HandleJumpReleased()`.
 
 \- **Key scripts**: 
