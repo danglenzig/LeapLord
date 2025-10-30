@@ -1,46 +1,30 @@
-\## Leap Lord — Project Overview (Unity 6)
+# Leap Lord — Project Overview (Unity 6)
+
+**Project type**: 2.5D platformer inspired by Jump King (focused, one-level scope, charge-and-jump core mechanic)
+
+**Unity version**: 6000.2.6f2
+
+**Primary scenes**:
+
+\- `Assets/Scenes/Start.unity`: Start/Menu
 
 
+\- `Assets/Scenes/Lab.unity`: Gameplay level
 
-\*\*Project type\*\*: 2.5D platformer inspired by Jump King (focused, one-level scope, charge-and-jump core mechanic)
-
-
-
-\*\*Unity version\*\*: 6000.2.6f2
-
-
-
-\*\*Primary scenes\*\*:
-
-\- `Assets/Scenes/Start.unity` — Start/Menu
-
-\- `Assets/Scenes/Lab.unity` — Gameplay level
-
-
-
-\### High-level vision
+## Summary
 
 Leap Lord is a small, systems-focused recreation inspired by Jump King. The emphasis is on a single, polishable level and a single core mechanic: charging a jump and committing to its outcome. There is minimal or no mid-air control; skill comes from gauging charge strength and route planning.
 
-
-
 ---
 
+## Systems Overview
 
+### Input System
 
-\## Systems Overview
-
-
-
-\### 1) Input System
-
-\- \*\*Tech\*\*: Unity Input System
-
-\- \*\*Runtime owner\*\*: `InputHandler` singleton
-
-\- \*\*Role\*\*: Centralizes player input actions (move, jump press/hold/release). Exposes a clean API to gameplay systems without scattering input logic across scripts.
-
-\- \*\*Script\*\*:`Assets/Scripts/Singletons/InputHandler.cs`.
+\- **Tech**: Unity Input System
+\- **Runtime owner**: `InputHandler` singleton
+\- **Role**: Centralizes player input actions (move, jump press/hold/release). Exposes a clean API to gameplay systems without scattering input logic across scripts.
+\- **Script**: `Assets/Scripts/Singletons/InputHandler.cs`.
 
 
 
@@ -51,14 +35,8 @@ Leap Lord is a small, systems-focused recreation inspired by Jump King. The emph
 \- \*\*State framework\*\*: `SimpleStateMachine`, `State`, `StateTransition`.
 
 \- \*\*Player state handlers\*\*: Govern the behavior of the player objects in the various states.
-\n`IdleStateHandler`, `WalkStateHandler`, `JumpPrepStateHandler` (charge jump), `AirborneStateHandler` (execute jump), `ParkedStateHandler` -- all inherit from the abstract class StateHandler and have override methods to deal with the various callbacks that govern gameplay.\n
 
-\nHandleOnEnter():
-\nHandleOnExit():
-\nHandleUpdate():
-\nHandleFixedUpdate():
-\nHandleJumpPressed():
-\nHandleJumpReleased():
+`IdleStateHandler`, `WalkStateHandler`, `JumpPrepStateHandler` (charge jump), `AirborneStateHandler` (execute jump), `ParkedStateHandler` -- all inherit from the abstract class StateHandler and have override methods to deal with the various callbacks that govern gameplay: HandleOnEnter(), HandleOnExit(), HandleUpdate(), HandleFixedUpdate(), HandleJumpPressed(), HandleJumpReleased()
 
 
 \- \*\*Key scripts\*\*: 
