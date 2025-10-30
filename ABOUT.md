@@ -14,6 +14,9 @@
 
 Leap Lord is a small, systems-focused recreation inspired by Jump King. The emphasis is on a single, polishable level and a single core mechanic: charging a jump and committing to its outcome. There is minimal or no mid-air control; skill comes from gauging charge strength and route planning.
 
+### Inspiration
+Nexile's [Jump King](https://en.wikipedia.org/wiki/Jump_King) is a "tactical leaping adventure" that reduces platforming to its most essential, high-stakes component: a single, chargeable jump. Players must ascend a colossal vertical tower where the only mechanic involves precisely holding a button to gauge jump height and trajectory, with no air control to correct mistakes. This deliberate design means a single miscalculation can result in a punishing fall, potentially erasing hours of progress. Its core retro appeal lies in this unforgiving, "masocore" difficulty, demanding pure mastery and patience from the player in exchange for the immense satisfaction of each successful ascent.
+
 ---
 
 ## Systems Overview
@@ -81,9 +84,9 @@ All inherit from the abstract class StateHandler. Each has override methods to d
 
 \- **Jump Charge Bar**: `JumpStrengthProgressBar.cs` displays current jump charge to support the commit-to-jump mechanic. 
 
-\- **Narration**: `NarrationUI`, with corresponding data assets to introduce the game's narrative context.
+\- **Narration**: Intended to introduce the game's narrative context. The narration content is defined in `NarrationData.cs`, and its onscreen presentation is mediated by `NarrationUI.cs`
 
-\- **Tutorial/Pause UI**: `TutorialUI`, with corresponding data assets to provide onboarding, and serve as the pause menu.
+\- **Tutorial/Pause UI**: Provides gameplay onboarding, and serves as the game's pause UI. Tutorial content is defined in `TutorialData.cs`, and it's onscreen presentation is mediated by `TutorialUI.cs`
 
 \- **Text rendering**: TextMesh Pro with free-use fonts (1001fonts.com) in `Assets/Fonts`.
 
@@ -113,7 +116,7 @@ All inherit from the abstract class StateHandler. Each has override methods to d
 
 ### Utilities and Helpers
 
-\- **Helpers**: `EnumLeoAnimations`, `Tags`, `NarrationNames` — central enums/constants for consistency.
+\- **Helpers**: `EnumLeoAnimations`, `Tags`, `NarrationNames` — central enums/constants intended to reduce the need for string literals elsewhere in the game.
 
 
 ---
