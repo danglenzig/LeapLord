@@ -40,7 +40,7 @@ Leap Lord is a small, systems-focused recreation inspired by Jump King. The emph
 
 \-`JumpPrepStateHandler`: During unpaused gameplay, when the jump input is pressed
 
-\-`AirborneStateHandler`: During unpaused gameplay, after the jump input is released
+\-`AirborneStateHandler`: During unpaused gameplay, after the jump input is released. Also when the player becomes ungrounded from the Walk or Idle states (e.g. walking off the edge of a platform).
 
 \-`ParkedStateHandler`: When gameplay is paused and the pause/tutorial overlay UI is visible
 
@@ -61,8 +61,6 @@ All inherit from the abstract class StateHandler. Each has override methods to d
 
 \- **Forces**: Impulse on jump start; gravity dominates during airborne. Friction/bounciness via physics materials as needed.
 
-\- **Camera**: See Camera System below.
-
 ### Camera System
 
 \- **Scripts**: `CameraMover`, `CameraTrigger`.
@@ -73,41 +71,21 @@ All inherit from the abstract class StateHandler. Each has override methods to d
 \- Keep platforming challenges readable while showcasing vertical progression
 \- Provide an inpsector-based interface for non-technical level designers
 
+### Collectibles / Checkpoints
 
+\- **Concept**: Without these, you lose all your progress when you miss a jump and fall from a great height. Spending collectible gems allow you to place checkpoint markers in the level. You can then teleport to your most-recently dropped checkpoint from anywhere in the level. The gems are a scarce and exhaustible resource though, so you need to use them strategically and judiciously.
 
-### Gameplay Environment
-
-\- **Scenes**: `Start.unity` (menu), `Lab.unity` (gameplay).
-
-\- **Prefabs**: Player, managers, checkpoints, VFX, and re-usable level pieces.
-
-\- **Examples**: `Assets/Prefabs/Player/Player.prefab`, `Assets/Prefabs/Checkpoint.prefab`, `Assets/Prefabs/PlayerManager.prefab`, `Assets/Prefabs/TeleportEffectPrefab.prefab`.
-
-\- **Approach**: Assemble the level by placing prefabs (platforms/props/hazards), keeping authoring simple and modular.
-
-
-
-### Collectibles / Score / Checkpoints
-
-\- **Script**: `CheckpointGem` handles collectible interaction.
-
-\- **Design**: Gems can serve as progress markers and/or score increments. They communicate with manager/systems to update state.
-
-\- **Scripts**: `Assets/Scripts/Collectibles/CheckpointGem.cs`.
+\- **Scripts**: `CheckpointGem` handles collectible interaction in combination with `PlayerManager`.
 
 ### UI and HUD
 
-\- **Jump Charge Bar**: `JumpStrengthProgressBar` displays current jump charge to support the commit-to-jump mechanic.
+\- **Jump Charge Bar**: `JumpStrengthProgressBar.cs` displays current jump charge to support the commit-to-jump mechanic. 
 
-\- **Narration**: `NarrationUI`, `TutorialUI` with corresponding data assets to present onboarding and flavor text.
+\- **Narration**: `NarrationUI`, with corresponding data assets to introduce the game's narrative context.
 
-\- **Tutorial/Pause UI**: ...
+\- **Tutorial/Pause UI**: `TutorialUI`, with corresponding data assets to provide onboarding, and serve as the pause menu.
 
-\- **Buttons**: `ButtonScript` for menu interactions.
-
-\- **Scripts**: `Assets/Scripts/Player/JumpStrengthProgressBar.cs`, `Assets/Scripts/UI/NarrationUI.cs`, `Assets/Scripts/UI/TutorialUI.cs`, `Assets/Scripts/UI/ButtonScript.cs`.
-
-\- **Text rendering**: TextMesh Pro with custom fonts in `Assets/Fonts`.
+\- **Text rendering**: TextMesh Pro with free-use fonts (1001fonts.com) in `Assets/Fonts`.
 
 ### Menus and Scene Management
 
@@ -117,81 +95,47 @@ All inherit from the abstract class StateHandler. Each has override methods to d
 
 \- **Scene registry**: `Helpers/SceneNames.cs` provides a central enum/const source for scene references.
 
-\- **Scripts**: `Assets/Scripts/Helpers/SceneNames.cs`, `Assets/Scripts/Singletons/GameManager.cs`.
-
-
-
 ### Lazy Singletons / Managers
 
-\- **GameManager**: Global game state (score/progress, scene flow).
+\- **GameManager**: Global game state and scene loading.
 
-\- **PlayerManager**: Central place for player reference/spawn and cross-scene persistence where needed.
+\- **PlayerManager**: Handles player data, and manages checkpoint gem inventory and interaction.
 
 \- **InputHandler**: Centralized input (see Input System).
-
-\- **Prefabs/Scripts**: `Assets/Prefabs/PlayerManager.prefab`, `Assets/Scripts/Singletons/\*.cs`.
 
 ### Animation and VFX
 
 \- **Animation**: `QuadSpriteAnimator` supports simple sprite/quads-based character animation.
 
-\- **Asset Pipeline**: ...
+\- **Asset Pipeline**: Original 2D animation frames created using a custom pipeline discussed in detail on the GP25 Discord channel [(message link)](https://discord.com/channels/1414564984569991312/1414565557205995671/1432711934783787132)
 
 \- **VFX**: Teleport/transition effects via `TeleportEffect` and `TeleportEffectPrefab` plus materials/shaders.
-
-\- **Scripts**: `Assets/Scripts/Player/QuadSpriteAnimator.cs`, `Assets/Scripts/Player/TeleportEffect.cs`.
-
-
 
 ### Utilities and Helpers
 
 \- **Helpers**: `EnumLeoAnimations`, `Tags`, `NarrationNames` — central enums/constants for consistency.
 
-\- **Motion utilities**: `FloatTweener`, `Oscillator` for simple time-based effects.
-
-\- **Scripts**: `Assets/Scripts/Helpers/\*.cs`, `Assets/Scripts/Misc/\*.cs`.
-
----
-
-## Key Assets and Folders
-
-\- `Assets/Scenes/` — `Start.unity` (menu), `Lab.unity` (level), post-process profiles for look.
-
-\- `Assets/Prefabs/` — `Player`, `PlayerManager`, `InputHandler`, `Checkpoint`, `TeleportEffectPrefab`, plus materials/shaders for the player quad.
-
-\- `Assets/Scripts/` — Organized by domain: `Player`, `StateMachine`, `Singletons`, `UI`, `Camera`, `Collectibles`, `Helpers`, `Misc`.
-
-\- `Assets/Fonts/` — Custom font assets for UI (used with TextMesh Pro).
-
-\- `Assets/Resources/` — Sprites/textures and UI assets for runtime loading as needed.
 
 ---
 
 ## How to Play (Editor)
 
-1\) Open `Assets/Scenes/Start.unity` and press Play.
+1\) Open `Assets/Scenes/Start.unity`. 
 
-2\) From the Start screen, begin the game to load `Lab.unity`.
+2\) Set the Game window to 1920:1080 resolution, and press Play.
 
-3\) Use keyboard/controller per Input System bindings to move, hold jump to charge, and release to commit to the jump.
+3\) Use keyboard/controller per Input System bindings to move, hold jump to charge, and release to commit to the jump. The in-game onboarding routine will cover this.
 
-4\) Watch the jump bar for charge strength. Collect gems/checkpoints as you progress upward.
-
----
+4\) Watch the jump bar for charge strength. Collect gems and drop checkpoints as you progress upward.
 
 ## Future Work / Nice-to-haves
 
-\- Add a pause menu (resume/restart/options).
+\- More skillful and challenging level design. What's here now is a bare minimum, intended only to demonstrate the core mechanics.
 
 \- Add sound effects and simple background music.
 
 \- Expand hazard variety and add a small enemy type with patrol AI.
 
-\- Add optional power-up that temporarily modifies jump charge rate or max strength.
+\- Add optional power-up that temporarily modifies jump charge rate or max strength, or allows minimal horizontal control while airborne.
 
 \- Polish camera transitions across tall vertical sections.
-
-
-
----
-
