@@ -120,7 +120,7 @@ namespace LeapLord
             if (!rb.isKinematic) // stand up straight
             {
                 transform.rotation = Quaternion.Euler(new Vector3(0.0f, 0.0f, 0.0f));
-                transform.position = new Vector3(transform.position.x, transform.position.y, 0.85f);
+                transform.position = new Vector3(transform.position.x, transform.position.y, 3.5f);
             }
 
             // handle state-dependent update behaviors
