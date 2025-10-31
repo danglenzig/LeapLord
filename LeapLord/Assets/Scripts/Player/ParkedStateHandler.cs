@@ -13,6 +13,11 @@ namespace LeapLord
         public override void HandleOnExit()
         {
             base.HandleOnExit();
+            if (player != null)
+            {
+                player.QuadIsFlipped = false;
+            }
+            
         }
         public override void HandleUpdate(float dTime, float moveX)
         {

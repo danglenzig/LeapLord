@@ -420,6 +420,7 @@
 "Assets/Scripts/Camera/CameraMover.cs"
 "Assets/Scripts/Camera/CameraTrigger.cs"
 "Assets/Scripts/Collectibles/CheckpointGem.cs"
+"Assets/Scripts/Collectibles/Crown.cs"
 "Assets/Scripts/Helpers/EnumLeoAnimations.cs"
 "Assets/Scripts/Helpers/NarrationNames.cs"
 "Assets/Scripts/Helpers/SceneNames.cs"

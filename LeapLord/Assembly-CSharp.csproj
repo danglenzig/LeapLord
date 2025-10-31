@@ -89,6 +89,7 @@
     <Compile Include="Assets\Scripts\UI\NarrationUI.cs" />
     <Compile Include="Assets\Scripts\UI\ButtonScript.cs" />
     <Compile Include="Assets\Scripts\Helpers\Tags.cs" />
+    <Compile Include="Assets\Scripts\Collectibles\Crown.cs" />
     <Compile Include="Assets\Scripts\Player\JumpStrengthProgressBar.cs" />
     <Compile Include="Assets\Scripts\Player\StateHandler.cs" />
     <Compile Include="Assets\Scripts\Player\AirborneStateHandler.cs" />

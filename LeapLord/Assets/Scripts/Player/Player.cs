@@ -248,7 +248,7 @@ namespace LeapLord
             switch (exitedState.StateName)
             {
                 case PlayerStateNames.PARKED:
-                    //stateHandlers.ParkedHandler.HandleOnExit();
+                    stateHandlers.ParkedHandler.HandleOnExit();
                     return;
                 case PlayerStateNames.IDLE:
                     //stateHandlers.IdleHandler.HandleOnExit();

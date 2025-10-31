@@ -58,6 +58,7 @@ namespace LeapLord
 
             NarrationUI.OnNarrationFinished += HandleOnNarrationFinished;
             InputHandler.OnPausePressed += HandleOnPausePressed;
+            Crown.OnCrownGot += HandleOnGameWon;
 
         }
 
@@ -92,6 +93,11 @@ namespace LeapLord
             startBS.ResetButtonText();
             aboutBS.ResetButtonText();
             quitBS.ResetButtonText();
+        }
+
+        private void HandleOnGameWon()
+        {
+            Debug.Log("You win");
         }
 
         public void OnAboutButtonPressed()
