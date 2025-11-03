@@ -79,6 +79,7 @@
     <Compile Include="Assets\Scripts\UI\NarrationData.cs" />
     <Compile Include="Assets\Scripts\Misc\FloatTweener.cs" />
     <Compile Include="Assets\Scripts\Singletons\InputHandler.cs" />
+    <Compile Include="Assets\Scripts\Collectibles\GemManager.cs" />
     <Compile Include="Assets\Scripts\Player\JumpPrepStateHandler.cs" />
     <Compile Include="Assets\Scripts\Camera\CameraTrigger.cs" />
     <Compile Include="Assets\Scripts\Player\Player.cs" />

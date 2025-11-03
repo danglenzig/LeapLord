@@ -60,6 +60,7 @@ namespace LeapLord
 
             InputHandler.OnDropGemPressed += DropGem;
             InputHandler.OnTeleportPressed += TeleportToCheckpoint;
+            CheckpointGem.OnGemCollected += CollectGem;
 
         }
 
@@ -93,7 +94,7 @@ namespace LeapLord
             return null;
         }
 
-        public static void CollectGem()
+        private void CollectGem(string _uuid)
         {
             if (gems + 1 > MAX_GEMS) { return; }
             gems += 1;
@@ -102,15 +103,15 @@ namespace LeapLord
 
         private static void DropGem()
         {
+            if (player == null) { player = GetPlayer(); }
+            if (player == null) { return; }
+
             if (gems <= 0)
             {
                 //Debug.Log("You got no gems :(");
                 OnTriedToDropAGemButDontGotNone?.Invoke();
                 return;
             }
-
-            if (player == null) { player = GetPlayer(); }
-            if (player == null) { return;  }
 
             gems -= 1;
             GemInventoryChanged?.Invoke();

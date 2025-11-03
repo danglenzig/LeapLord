@@ -24,6 +24,10 @@ namespace LeapLord
         {
             PlayerManager.GemInventoryChanged += UpdateGemsUI;
             PlayerManager.OnTriedToDropAGemButDontGotNone += HandleGotNoGems;
+            CheckpointGem.TriedToCollectButFull += () =>
+            {
+                StartCoroutine(FlashGemsText());
+            };
         }
 
         private void Start()
