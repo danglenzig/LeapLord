@@ -25,14 +25,14 @@ MonoBehaviour:
   - __PanelContainer__rootVisualContainer__inspector-window-main-scroll-view__unity-list-lines__unity-vertical-collection-scroll-view__UnityEngine.UIElements.ScrollView
   - __PanelContainer__rootVisualContainer__inspector-window-main-scroll-view__unity-list-lines__unity-vertical-collection-scroll-view__Slider__UnityEngine.UIElements.Scroller+ScrollerSlider
   m_Values:
-  - '{"m_ScrollOffset":{"x":0.0,"y":0.0}}'
-  - '{"m_Value":0.0,"m_LowValue":0.0,"m_HighValue":2147483648.0}'
   - '{}'
   - '{}'
   - '{}'
   - '{}'
   - '{}'
-  - '{}'
+  - '{"m_ShowAlternatingRowBackgrounds":0,"serializedVirtualizationData":{"scrollOffset":{"x":0.0,"y":89.0},"firstVisibleIndex":3,"contentPadding":66.0,"contentHeight":562.0,"anchoredItemIndex":3,"anchorOffset":23.0},"m_SelectedIds":[]}'
+  - '{"m_ScrollOffset":{"x":0.0,"y":89.0}}'
+  - '{"m_Value":0.0,"m_LowValue":0.0,"m_HighValue":0.0}'
   - '{}'
   - '{}'
   - '{}'
