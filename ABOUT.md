@@ -43,7 +43,7 @@ Nexile's [Jump King](https://en.wikipedia.org/wiki/Jump_King) is a "tactical lea
 \- **Script**: `Assets/Scripts/Singletons/InputHandler.cs`.
 
 ### Player Controls and State Machine
-\- **Core object**: `Player` prefab driven by a lightweight finite state machine.
+\- **Core object**: `Player` prefab, driven by a lightweight finite state machine.
 
 \- **State framework**: `SimpleStateMachine`, `State`, `StateTransition`.
 
@@ -90,7 +90,7 @@ All inherit from the abstract class StateHandler. Each has override methods to d
 
 \- **Concept**: Without these, you lose all your progress when you miss a jump and fall from a great height. Spending collectible gems allow you to place checkpoint markers in the level. You can then teleport to your most-recently dropped checkpoint from anywhere in the level. The gems are a scarce and exhaustible resource though, so you need to use them strategically and judiciously.
 
-\- **Scripts**: `CheckpointGem` handles collectible interaction in combination with `PlayerManager`.
+\- **Scripts**: `CheckpointGem` handles collectible interaction in combination with `PlayerManager`. `GemManager` handles spawning and replenishing checkpoint gems from the collectible prefab.
 
 ### UI and HUD
 
@@ -100,11 +100,14 @@ All inherit from the abstract class StateHandler. Each has override methods to d
 
 \- **Tutorial/Pause UI**: Provides gameplay onboarding, and serves as the game's pause UI. Tutorial content is defined in `TutorialData.cs`, and it's onscreen presentation is mediated by `TutorialUI.cs`
 
+\- **HUD**: Contains buttons for pausing, quitting, and returning to the main menu. Also contains text with collectibles information.
+
 \- **Text rendering**: TextMesh Pro with free-use fonts (1001fonts.com) in `Assets/Fonts`.
+
 
 ### Menus and Scene Management
 
-\- **Start menu**: Implemented in `Start.unity`, wired via `ButtonScript` and manager calls.
+\- **Start menu**: Implemented in `Start.unity`, wired via `ButtonScript` and manager calls. Detects if the game is new (`PlayerManager.IsNew`), and sets the start button text to "Continue" if not.
 
 \- **Gameplay scene**: `Lab.unity` is the main level.
 
