@@ -9,6 +9,7 @@ namespace LeapLord
     {
         public static event System.Action OnTutorialClosed;
         public static event System.Action OnMainPressed;
+        public static event System.Action<bool> OnTutorialEnabledChanged;
 
         [SerializeField] private RawImage slideImage;
         [SerializeField] private TMP_Text slideText;
@@ -73,7 +74,15 @@ namespace LeapLord
             OnMainPressed?.Invoke();
         }
 
+        private void OnEnable()
+        {
+            OnTutorialEnabledChanged?.Invoke(true);
+        }
 
+        private void OnDisable()
+        {
+            OnTutorialEnabledChanged?.Invoke(false);
+        }
     }
 }
 

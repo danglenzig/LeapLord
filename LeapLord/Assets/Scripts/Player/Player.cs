@@ -4,6 +4,8 @@ namespace LeapLord
     public class Player : MonoBehaviour
     {
 
+        public static event System.Action AppearedOnContinue;
+
         public const float MOVE_THRESHOLD = 0.1f;
         public const float MOVE_SPEED = 1.5f;
         public const float MAX_JUMP_STRENGTH = 100.0f;
@@ -98,13 +100,8 @@ namespace LeapLord
 
         private void Start()
         {
-            //ActivateTeleportEffect(false);
-            teleportEffect.gameObject.SetActive(false);
             rb = GetComponent<Rigidbody>();
-            psm.SendEventString(toIdleTransition.EventString);
-            stateHandlers.player = this; // the stateHandlers script calls SetIsReady after it creates its dependencies
-            Vector3 pos = transform.position;
-            TeleportToPosition(pos);
+            stateHandlers.player = this;
 
             if (PlayerManager.IsNew == false)
             {
@@ -149,9 +146,10 @@ namespace LeapLord
 
         private void HandleContinue()
         {
-            // TODO teleport to the right position, etc.
             Vector3 lastPos = PlayerManager.LastPlayerPosition;
-            TeleportToPosition(lastPos);
+            transform.position = lastPos;
+            //TeleportToPosition(lastPos);
+            AppearedOnContinue?.Invoke();
         }
 
         public bool IsGrounded()
@@ -221,6 +219,9 @@ namespace LeapLord
 
         private void HandleOnStateEntered(State enteredState)
         {
+
+            //Debug.Log($"Entered {enteredState.StateName}");
+
             // handle on enter state behaviors
             switch (enteredState.StateName)
             {
@@ -273,8 +274,7 @@ namespace LeapLord
 
         public void TeleportToPosition(Vector3 pos)
         {
-            Psm.SendEventString(ToParkedTransition.EventString);
-            teleportEffect.gameObject.SetActive(true);
+            Park();
             teleportEffect.Play();
             StartCoroutine(WaitThenReappear(0.5f, pos));
         }
@@ -283,11 +283,9 @@ namespace LeapLord
         {
             yield return new WaitForSeconds(_delay);
             transform.position = pos;
-            //teleportEffect.Play();
-            Psm.SendEventString(ToIdleTransition.EventString);
+            UnPark();
             teleportEffect.Play();
             yield return new WaitForSeconds(0.5f);
-            teleportEffect.gameObject.SetActive(false);
 
         }
         

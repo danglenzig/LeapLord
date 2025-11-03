@@ -20,7 +20,6 @@ namespace LeapLord
 
         public void Play()
         {
-            //LoadFrames(framesFolder);
             StartCoroutine(PlayOneShot());
         }
 
@@ -32,9 +31,6 @@ namespace LeapLord
             {
                 frames[i] = (Texture2D)loaded[i];
             }
-
-            //Debug.Log(frames.Length);
-
         }
 
         private System.Collections.IEnumerator PlayOneShot()
@@ -57,25 +53,13 @@ namespace LeapLord
                     }
                     else
                     {
-
-                        //Debug.Log(currentFrame);
-
                         //not the last frame
                         yield return new WaitForSeconds(1 / frameRate);
                         currentFrame = (currentFrame + 1) % frames.Length;
                     }
                 }
             }
-
         }
-
-        private System.Collections.IEnumerator Test()
-        {
-            yield return new WaitForSeconds(2.0f);
-            Play();
-        }
-
-
     }
 }
 

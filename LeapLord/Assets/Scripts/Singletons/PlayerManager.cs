@@ -61,6 +61,7 @@ namespace LeapLord
             InputHandler.OnDropGemPressed += DropGem;
             InputHandler.OnTeleportPressed += TeleportToCheckpoint;
             CheckpointGem.OnGemCollected += CollectGem;
+            Player.AppearedOnContinue += HandleAppearedOnContinue;
 
         }
 
@@ -130,6 +131,8 @@ namespace LeapLord
             newCheckpoint.gameObject.SetActive(true);
         }
 
+
+
         public static void TeleportToCheckpoint()
         {
             if (player == null) { player = GetPlayer(); }
@@ -145,9 +148,21 @@ namespace LeapLord
 
         }
 
-        public static void SaveData()
+        private void HandleAppearedOnContinue()
         {
-            //
+            if (checkpointsDropped <= 0) { return; }
+
+            GameObject[] checkpointMarkers = GameObject.FindGameObjectsWithTag(Tags.CHECKPOINT);
+            foreach (GameObject cm in checkpointMarkers)
+            {
+                cm.gameObject.SetActive(false);
+            }
+            GameObject? newCheckpoint = Instantiate(staticCheckpointPrefab);
+            newCheckpoint.tag = Tags.CHECKPOINT;
+            newCheckpoint.transform.position = lastCheckpointPos;
+            newCheckpoint.gameObject.SetActive(true);
+
+
         }
     }
 }

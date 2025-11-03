@@ -28,6 +28,7 @@ namespace LeapLord
             {
                 StartCoroutine(FlashGemsText());
             };
+
         }
 
         private void Start()
@@ -42,7 +43,7 @@ namespace LeapLord
 
         public void HandlePausePressed()
         {
-            OnMainPressed?.Invoke();
+            OnPausePressed?.Invoke();
         }
 
         public void HandleQuitPressed()

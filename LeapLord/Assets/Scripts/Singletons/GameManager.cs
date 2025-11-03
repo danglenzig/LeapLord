@@ -83,6 +83,10 @@ namespace LeapLord
             NarrationUI.OnNarrationFinished += HandleOnNarrationFinished;
             TutorialUI.OnTutorialClosed += HandleOnCloseTutorialPressed;
             TutorialUI.OnMainPressed += HandleOnMainMenuPressed;
+            TutorialUI.OnTutorialEnabledChanged += (_value) =>
+            {
+                hudPanel.gameObject.SetActive(!_value);
+            };
             HudUI.OnMainPressed += HandleOnMainMenuPressed;
             HudUI.OnPausePressed += HandleOnPausePressed;
             HudUI.OnQuitPressed += HandleOnQuitButtonPressed;
@@ -209,7 +213,6 @@ namespace LeapLord
             if (player != null)
             {
                 PlayerManager.LastPlayerPosition = player.transform.position;
-                //PlayerManager.SaveData(); // replace the ^^above with this
             }
 
             SceneManager.LoadScene(SceneNames.START);

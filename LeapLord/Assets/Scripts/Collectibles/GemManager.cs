@@ -91,7 +91,7 @@ namespace LeapLord
             gemGO.transform.position = chosenSpawnPoint.marker.transform.position;
             chosenSpawnPoint.gemUUID = gemGO.GetComponent<CheckpointGem>().UUID;
 
-            Debug.Log(chosenSpawnPoint.gemUUID);
+            //Debug.Log(chosenSpawnPoint.gemUUID);
 
         }
 
