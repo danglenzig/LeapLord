@@ -33,8 +33,8 @@ namespace LeapLord
             if (isGot == true) { return; }
             isGot = true;
             crownVisual.SetActive(false);
-            Debug.Log("You got the crown!!");
-            OnCrownGot.Invoke();
+            //Debug.Log("You got the crown!!");
+            OnCrownGot?.Invoke();
             Destroy(gameObject);
 
         }

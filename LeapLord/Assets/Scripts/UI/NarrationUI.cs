@@ -1,3 +1,4 @@
+#nullable enable
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -8,22 +9,22 @@ namespace LeapLord
     public class NarrationUI : MonoBehaviour
     {
 
-        public static event System.Action<string> OnNarrationFinished;
+        public static event System.Action<string>? OnNarrationFinished;
 
 
         const float TEXT_REVEAL_INTERVAL = 0.005f;
 
 
-        [SerializeField] private RawImage portraitImage;
-        [SerializeField] private TMP_Text narrationText;
-        [SerializeField] private Button continueButton;
+        [SerializeField] private RawImage? portraitImage;
+        [SerializeField] private TMP_Text? narrationText;
+        [SerializeField] private Button? continueButton;
 
         private Narration? currentNarration = null;
         private int currentNarrationIndex = -1;
 
         void Start()
         {
-            continueButton.gameObject.SetActive(false);
+            continueButton?.gameObject.SetActive(false);
         }
 
 
@@ -50,7 +51,7 @@ namespace LeapLord
             else
             {
                 // continue the narration
-                continueButton.gameObject.SetActive(false);
+                continueButton?.gameObject.SetActive(false);
                 currentNarrationIndex += 1;
                 NarrationLine thisLine = currentNarration.Lines[currentNarrationIndex];
                 string thisLineText = thisLine.LineText;
@@ -69,29 +70,8 @@ namespace LeapLord
                 narrationText.text += character;
                 yield return new WaitForSeconds(TEXT_REVEAL_INTERVAL);
             }
-            continueButton.gameObject.SetActive(true);
+            continueButton?.gameObject.SetActive(true);
         }
-
-
-        /*
-        private System.Collections.IEnumerator WaitThenTest()
-        {
-            yield return new WaitForSeconds(1.0f);
-            TestNarrationData();
-        }
-
-        private void TestNarrationData()
-        {
-            List<NarrationLine> lines = NarrationData.BuildAndReturnNarrationLines();
-            NarrationLine testLine = lines[1];
-
-            string testText = testLine.LineText;
-            string testTexturePath = testLine.PortraitTexturePath;
-
-            narrationText.text = testText; // <--- This works fine.
-            portraitImage.texture = Resources.Load<Texture>(testTexturePath); // This does not.
-        }
-        */
 
     }
 }

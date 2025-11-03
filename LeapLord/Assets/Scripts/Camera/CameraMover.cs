@@ -1,3 +1,4 @@
+#nullable enable
 using UnityEngine;
 using System.Collections.Generic;
 namespace LeapLord
@@ -6,8 +7,8 @@ namespace LeapLord
     [System.Serializable]
     public class CameraZone
     {
-        public Transform playerMarker;
-        public Transform cameraMarker;
+        public Transform? playerMarker;
+        public Transform? cameraMarker;
     }
 
     public class CameraMover : MonoBehaviour
@@ -20,9 +21,9 @@ namespace LeapLord
         [SerializeField] private List<CameraZone> cameraZones = new List<CameraZone>();
 
 
-        private Player player;
-        private Camera cam;
-        private Transform currentCameraMarker;
+        private Player? player;
+        private Camera? cam;
+        private Transform? currentCameraMarker;
 
         private bool dampened = false;
         private bool beMoving = true;
@@ -53,9 +54,9 @@ namespace LeapLord
 
             float playerY = player.transform.position.y;
 
-            foreach (CameraZone zone in cameraZones)
+            foreach (CameraZone? zone in cameraZones)
             {
-                if (playerY < zone.playerMarker.position.y)
+                if (playerY < zone.playerMarker?.position.y)
                 {
                     MoveCamToMarker(zone.cameraMarker);
                     return;

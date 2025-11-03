@@ -447,6 +447,8 @@
 "Assets/Scripts/StateMachine/State.cs"
 "Assets/Scripts/StateMachine/StateTransition.cs"
 "Assets/Scripts/UI/ButtonScript.cs"
+"Assets/Scripts/UI/HudUI.cs"
+"Assets/Scripts/UI/MainMenuPanel.cs"
 "Assets/Scripts/UI/NarrationData.cs"
 "Assets/Scripts/UI/NarrationUI.cs"
 "Assets/Scripts/UI/TutorialData.cs"

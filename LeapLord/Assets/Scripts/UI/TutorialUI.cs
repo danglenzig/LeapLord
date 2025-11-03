@@ -7,6 +7,9 @@ namespace LeapLord
 {
     public class TutorialUI : MonoBehaviour
     {
+        public static event System.Action OnTutorialClosed;
+        public static event System.Action OnMainPressed;
+
         [SerializeField] private RawImage slideImage;
         [SerializeField] private TMP_Text slideText;
         [SerializeField] private Button rightButton;
@@ -59,6 +62,17 @@ namespace LeapLord
             currentSlideIdx = (currentSlideIdx + 1) % slides.Count;
             HandleCurrentSlide();
         }
+
+        public void HandleOnCloseButtonPressed()
+        {
+            OnTutorialClosed?.Invoke();
+        }
+
+        public void HandleOnMainPressed()
+        {
+            OnMainPressed?.Invoke();
+        }
+
 
     }
 }

@@ -1,25 +1,28 @@
+#nullable enable
 using UnityEngine;
 using System.Collections.Generic;
 namespace LeapLord
 {
     public class PlayerManager : MonoBehaviour
     {
-        public static event System.Action<bool> OnIsNewChanged;
+        public static event System.Action<bool>? OnIsNewChanged;
+        public static event System.Action? GemInventoryChanged;
+        public static event System.Action? OnTriedToDropAGemButDontGotNone;
 
         private const float POLLING_INTERVAL = 0.5f;
-        private const int MAX_GEMS = 3;
+        public const int MAX_GEMS = 3;
 
 
-        [SerializeField] private GameObject checkpointPrefab;
-        private static GameObject staticCheckpointPrefab;
+        [SerializeField] private GameObject? checkpointPrefab;
+        private static GameObject? staticCheckpointPrefab;
 
 
         private static float highestPlayerY = 0.0f;
-        private static float lastCheckpointY = 0.0f;
         private static Vector3 lastCheckpointPos = Vector3.zero;
         
         private static int checkpointsDropped = 0;
         private static int gems = 0;
+        public static int Gems { get => gems; }
 
         private static Player? player;
         private float timeAccumulator = 0.0f;
@@ -38,14 +41,22 @@ namespace LeapLord
             }
         }
 
+        private static Vector3 lastPlayerPosition = new Vector3();
+        public static Vector3 LastPlayerPosition
+        {
+            get => lastPlayerPosition;
+            set { lastPlayerPosition = value; }
+        }
+
         private void Awake()
         {
             if (GameObject.FindGameObjectsWithTag(Tags.PLAYER_MANAGER_SINGLETON).Length > 0)
             {
                 Destroy(gameObject);
+                return;
             }
             tag = Tags.PLAYER_MANAGER_SINGLETON;
-            DontDestroyOnLoad(this);
+            DontDestroyOnLoad(gameObject);
 
             InputHandler.OnDropGemPressed += DropGem;
             InputHandler.OnTeleportPressed += TeleportToCheckpoint;
@@ -86,14 +97,15 @@ namespace LeapLord
         {
             if (gems + 1 > MAX_GEMS) { return; }
             gems += 1;
-            Debug.Log($"You got a gem! You now have {gems}");
+            GemInventoryChanged?.Invoke();
         }
 
         private static void DropGem()
         {
             if (gems <= 0)
             {
-                Debug.Log("You got no gems :(");
+                //Debug.Log("You got no gems :(");
+                OnTriedToDropAGemButDontGotNone?.Invoke();
                 return;
             }
 
@@ -101,6 +113,7 @@ namespace LeapLord
             if (player == null) { return;  }
 
             gems -= 1;
+            GemInventoryChanged?.Invoke();
             checkpointsDropped += 1;
             lastCheckpointPos = player.transform.position;
 
@@ -110,7 +123,7 @@ namespace LeapLord
                 cm.gameObject.SetActive(false);
             }
 
-            GameObject newCheckpoint = Instantiate(staticCheckpointPrefab);
+            GameObject? newCheckpoint = Instantiate(staticCheckpointPrefab);
             newCheckpoint.tag = Tags.CHECKPOINT;
             newCheckpoint.transform.position = player.transform.position;
             newCheckpoint.gameObject.SetActive(true);
@@ -129,6 +142,11 @@ namespace LeapLord
 
             player.TeleportToPosition(lastCheckpointPos);
 
+        }
+
+        public static void SaveData()
+        {
+            //
         }
     }
 }

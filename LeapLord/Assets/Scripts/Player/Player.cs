@@ -111,6 +111,7 @@ namespace LeapLord
                 HandleContinue();
                 return;
             }
+            PlayerManager.IsNew = false;
         }
         
         private void Update()
@@ -149,6 +150,8 @@ namespace LeapLord
         private void HandleContinue()
         {
             // TODO teleport to the right position, etc.
+            Vector3 lastPos = PlayerManager.LastPlayerPosition;
+            TeleportToPosition(lastPos);
         }
 
         public bool IsGrounded()

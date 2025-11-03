@@ -11,6 +11,9 @@ TagManager:
   - SingletonsPlayerManager
   - Checkpoint
   - SingletonsGameManager
+  - SingletonsEventSystem
+  - SingletonsMainCanvas
+  - TutorialUI
   layers:
   - Default
   - TransparentFX

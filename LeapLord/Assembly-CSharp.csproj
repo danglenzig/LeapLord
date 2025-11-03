@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Helpers\NarrationNames.cs" />
+    <Compile Include="Assets\Scripts\UI\MainMenuPanel.cs" />
     <Compile Include="Assets\Scripts\Helpers\SceneNames.cs" />
     <Compile Include="Assets\Scripts\StateMachine\State.cs" />
     <Compile Include="Assets\Scripts\Player\ParkedStateHandler.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="Assets\Scripts\Collectibles\Crown.cs" />
     <Compile Include="Assets\Scripts\Player\JumpStrengthProgressBar.cs" />
     <Compile Include="Assets\Scripts\Player\StateHandler.cs" />
+    <Compile Include="Assets\Scripts\UI\HudUI.cs" />
     <Compile Include="Assets\Scripts\Player\AirborneStateHandler.cs" />
     <Compile Include="Assets\Scripts\StateMachine\StateTransition.cs" />
     <Compile Include="Assets\Scripts\StateMachine\PlayerStateNames.cs" />

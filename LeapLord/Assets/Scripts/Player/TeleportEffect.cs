@@ -18,11 +18,6 @@ namespace LeapLord
             LoadFrames(framesFolder);
         }
 
-        //private void OnEnable()
-        //{
-        //    Play();
-        //}
-
         public void Play()
         {
             //LoadFrames(framesFolder);

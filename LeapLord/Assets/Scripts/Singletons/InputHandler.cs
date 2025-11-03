@@ -41,9 +41,10 @@ namespace LeapLord
             if (GameObject.FindGameObjectsWithTag(Tags.INPUT_HANDLER_SINGLETON).Length > 0)
             {
                 Destroy(gameObject);
+                return;
             }
             gameObject.tag = Tags.INPUT_HANDLER_SINGLETON;
-            DontDestroyOnLoad(this);
+            DontDestroyOnLoad(gameObject);
             myKB = Keyboard.current;
         }
 
@@ -71,18 +72,21 @@ namespace LeapLord
             moveX = moveRight + moveLeft;
 
 
-
-
-            if (myKB.spaceKey.wasPressedThisFrame)
+            if (myKB.spaceKey.wasReleasedThisFrame)
             {
-                OnJumpPressed?.Invoke();
+                OnJumpReleased?.Invoke();
                 StartCoroutine(DampenPressedInputs());
                 return;
             }
 
-            if (myKB.spaceKey.wasReleasedThisFrame)
+            if (pressedInputsDampened)
             {
-                OnJumpReleased?.Invoke();
+                return;
+            }
+
+            if (myKB.spaceKey.wasPressedThisFrame)
+            {
+                OnJumpPressed?.Invoke();
                 StartCoroutine(DampenPressedInputs());
                 return;
             }

@@ -1,3 +1,4 @@
+#nullable enable
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -8,18 +9,18 @@ namespace LeapLord
     public class GameManager : MonoBehaviour
     {
 
-        [SerializeField] private Canvas mainCanvas;
-        [SerializeField] private GameObject eventSystem;
+        [SerializeField] private Canvas? mainCanvas;
+        [SerializeField] private GameObject? eventSystem;
 
-        [SerializeField] private GameObject mainMenuPanel;
-        [SerializeField] private GameObject hudPanel;
+        [SerializeField] private GameObject? mainMenuPrefab;
+        [SerializeField] private GameObject? hudPrefab;
+        [SerializeField] private GameObject? narrationPrefab;
+        [SerializeField] private GameObject? tutorialPrefab;
 
-        [SerializeField] private Button startButton;
-        [SerializeField] private Button aboutButton;
-        [SerializeField] private Button quitButton;
-
-        [SerializeField] private NarrationUI narrationUI;
-        [SerializeField] private TutorialUI tutorialUI;
+        private MainMenuPanel? mainMenuPanel = null;
+        private HudUI? hudPanel = null;
+        private NarrationUI? narrationUI = null;
+        private TutorialUI? tutorialUI = null;
 
         [SerializeField] private bool skipIntro = false;
 
@@ -43,56 +44,91 @@ namespace LeapLord
 
         private void Awake()
         {
-
+            eventSystem?.gameObject.SetActive(false);
             NarrationData.BuildNarrations();
             TutorialData.BuildTutorial();
 
+            if (GameObject.FindGameObjectsWithTag(Tags.EVENT_SYSTEM_SINGLETON).Length > 0) { Destroy(eventSystem?.gameObject); }
+            if (GameObject.FindGameObjectsWithTag(Tags.MAIN_CANVAS_SINGLETON).Length > 0) { Destroy(mainCanvas?.gameObject); }
             if (GameObject.FindGameObjectsWithTag(Tags.GAME_MANAGER_SINGLETON).Length > 0)
             {
                 Destroy(gameObject);
+                return;
             }
-            tag = Tags.GAME_MANAGER_SINGLETON;
-            DontDestroyOnLoad(this);
-            DontDestroyOnLoad(mainCanvas);
-            DontDestroyOnLoad(eventSystem);
 
-            NarrationUI.OnNarrationFinished += HandleOnNarrationFinished;
+            tag = Tags.GAME_MANAGER_SINGLETON;
+            mainCanvas.tag = Tags.MAIN_CANVAS_SINGLETON;
+            eventSystem.tag = Tags.EVENT_SYSTEM_SINGLETON;
+
+            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(mainCanvas.gameObject);
+            DontDestroyOnLoad(eventSystem.gameObject);
+
+            GameObject? mmGo = Instantiate(mainMenuPrefab, mainCanvas.transform);
+            mainMenuPanel = mmGo?.GetComponent<MainMenuPanel>();
+
+            GameObject? hudGo = Instantiate(hudPrefab, mainCanvas.transform);
+            hudPanel = hudGo?.GetComponent<HudUI>();
+
+            GameObject? narrGo = Instantiate(narrationPrefab, mainCanvas.transform);
+            narrationUI = narrGo?.GetComponent<NarrationUI>();
+
+            GameObject? tutGo = Instantiate(tutorialPrefab, mainCanvas.transform);
+            tutorialUI = tutGo?.GetComponent<TutorialUI>();
+
             InputHandler.OnPausePressed += HandleOnPausePressed;
-            Crown.OnCrownGot += HandleOnGameWon;
+
+            MainMenuPanel.OnStartButtonPressed += HandleOnStartButtonPressed;
+            MainMenuPanel.OnQuitPressed += HandleOnQuitButtonPressed;
+            NarrationUI.OnNarrationFinished += HandleOnNarrationFinished;
+            TutorialUI.OnTutorialClosed += HandleOnCloseTutorialPressed;
+            TutorialUI.OnMainPressed += HandleOnMainMenuPressed;
+            HudUI.OnMainPressed += HandleOnMainMenuPressed;
+            HudUI.OnPausePressed += HandleOnPausePressed;
+            HudUI.OnQuitPressed += HandleOnQuitButtonPressed;
+
+            mmGo?.SetActive(false);
+            hudGo?.SetActive(false);
+            narrGo?.SetActive(false);
+            tutGo?.SetActive(false);
 
         }
 
         private void Start()
         {
-            HandleIsNewChanged(PlayerManager.IsNew);
-            mainMenuPanel.gameObject.SetActive(true);
+            eventSystem?.gameObject.SetActive(true);
+            mainMenuPanel?.gameObject.SetActive(true);
+            hudPanel?.gameObject.SetActive(false);
+            narrationUI?.gameObject.SetActive(false);
+            tutorialUI?.gameObject.SetActive(false);
         }
-
-        public void OnStartButtonPressed()
+        
+        private void HandleOnStartButtonPressed()
         {
-            ResetButtons();
-            mainMenuPanel.gameObject.SetActive(false);
-            narrationUI.gameObject.SetActive(true);
 
-            if (skipIntro == false)
+            //Debug.Log("Start button pressed");
+            mainMenuPanel?.ResetButtons();
+            mainMenuPanel?.gameObject.SetActive(false);
+            narrationUI?.gameObject.SetActive(true);
+
+            if (PlayerManager.IsNew)
             {
-                narrationUI.StartNarration(NarrationData.OpeningNarration);
+                if (!skipIntro)
+                {
+                    narrationUI?.StartNarration(NarrationData.OpeningNarration);
+                }
+                else
+                {
+                    HandleOnNarrationFinished(NarrationNames.OPENING_NARRATION);
+                }
             }
             else
             {
                 HandleOnNarrationFinished(NarrationNames.OPENING_NARRATION);
             }
-        }
 
-        private void ResetButtons()
-        {
-            ButtonScript startBS = startButton.GetComponent<ButtonScript>();
-            ButtonScript aboutBS = aboutButton.GetComponent<ButtonScript>();
-            ButtonScript quitBS = quitButton.GetComponent<ButtonScript>();
-
-            startBS.ResetButtonText();
-            aboutBS.ResetButtonText();
-            quitBS.ResetButtonText();
+            
+            
         }
 
         private void HandleOnGameWon()
@@ -105,31 +141,27 @@ namespace LeapLord
             //
         }
 
-        public void OnQuitButtonPressed()
+        public void HandleOnQuitButtonPressed()
         {
-            //
-        }
-
-        private void HandleOnPointerEnterButton()
-        {
-
+            Debug.Log("FOO");
+            UnityEditor.EditorApplication.isPlaying = false;
+            Application.Quit();
         }
 
         private void HandleOnNarrationFinished(string narrationName)
         {
+            
             switch (narrationName)
             {
                 case NarrationNames.OPENING_NARRATION:
 
-                    Debug.Log($"{narrationName} complete!");
-                    narrationUI.gameObject.SetActive(false);
-                    hudPanel.gameObject.SetActive(true);
+                    //Debug.Log($"{narrationName} complete!");
+                    narrationUI?.gameObject.SetActive(false);
+                    hudPanel?.gameObject.SetActive(true);
                     SceneManager.LoadScene(SceneNames.LAB);
 
                     if (PlayerManager.IsNew)
                     {
-                        // play tutorial
-                        PlayerManager.IsNew = false;
                         StartCoroutine(WaitASecThenDisplayTutorial());
                     }
 
@@ -138,6 +170,7 @@ namespace LeapLord
                 case NarrationNames.CLOSING_NARRATION:
                     return;
             }
+            
         }
 
         private Player? GetPlayer()
@@ -151,25 +184,42 @@ namespace LeapLord
             return null;
         }
 
-        private void HandleOnPausePressed()
+        public void HandleOnPausePressed()
         {
             if (GetPlayer() == null) { return; }
             isPaused = !isPaused;
         }
 
-        public void HandleOnCloseTutorialPressed()
+
+
+        private void HandleOnCloseTutorialPressed()
         {
             if (GetPlayer() == null) { return; }
             isPaused = false;
         }
 
-        public void HandleOnMainMenuPressed()
+        private void HandleOnMainMenuPressed()
         {
-            //
+
+            narrationUI?.gameObject.SetActive(false);
+            hudPanel?.gameObject.SetActive(false);
+            tutorialUI?.gameObject.SetActive(false);
+
+            Player? player = GetPlayer();
+            if (player != null)
+            {
+                PlayerManager.LastPlayerPosition = player.transform.position;
+                //PlayerManager.SaveData(); // replace the ^^above with this
+            }
+
+            SceneManager.LoadScene(SceneNames.START);
+            mainMenuPanel?.gameObject.SetActive(true);
         }
 
+        /*
         private void HandleIsNewChanged(bool _isNew)
         {
+            
             GameObject startButtonTextGO = startButton.transform.GetChild(0).gameObject;
             TMP_Text startButtonText = startButtonTextGO.GetComponent<TMP_Text>();
             if (_isNew == true)
@@ -181,31 +231,36 @@ namespace LeapLord
                 startButtonText.text = "Continue";
                 skipIntro = true;
             }
+            
         }
+        */
 
         private void HideTutorial()
         {
-
-            tutorialUI.ResetTutorial();
-            tutorialUI.gameObject.SetActive(false);
+            
+            tutorialUI?.ResetTutorial();
+            tutorialUI?.gameObject.SetActive(false);
 
             Player? player = GetPlayer();
             if (player != null)
             {
                 player.UnPark();
             }
+            
         }
 
         private void DisplayTutorial()
         {
-            tutorialUI.gameObject.SetActive(true);
-            tutorialUI.StartTutorial();
+
+            tutorialUI?.gameObject.SetActive(true);
+            tutorialUI?.StartTutorial();
 
             Player? player = GetPlayer();
             if (player != null)
             {
                 player.Park();
             }
+            
         }
 
         private System.Collections.IEnumerator WaitASecThenDisplayTutorial()
