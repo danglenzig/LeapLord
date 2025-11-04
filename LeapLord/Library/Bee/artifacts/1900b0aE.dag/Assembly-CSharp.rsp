@@ -424,6 +424,7 @@
 "Assets/Scripts/Collectibles/GemCollectEffect.cs"
 "Assets/Scripts/Collectibles/GemManager.cs"
 "Assets/Scripts/Helpers/EnumLeoAnimations.cs"
+"Assets/Scripts/Helpers/MiscTools.cs"
 "Assets/Scripts/Helpers/NarrationNames.cs"
 "Assets/Scripts/Helpers/SceneNames.cs"
 "Assets/Scripts/Helpers/Tags.cs"

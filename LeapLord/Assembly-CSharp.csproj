@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\Helpers\NarrationNames.cs" />
     <Compile Include="Assets\Scripts\UI\MainMenuPanel.cs" />
     <Compile Include="Assets\Scripts\Helpers\SceneNames.cs" />
+    <Compile Include="Assets\Scripts\Helpers\MiscTools.cs" />
     <Compile Include="Assets\Scripts\Scratch\ScratchObject.cs" />
     <Compile Include="Assets\Scripts\StateMachine\State.cs" />
     <Compile Include="Assets\Scripts\Collectibles\GemCollectEffect.cs" />

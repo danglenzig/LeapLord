@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
+using MiscTools;
+
 namespace LeapLord
 {
 
@@ -8,6 +10,8 @@ namespace LeapLord
         public Transform marker;
         public string gemUUID;
     }
+
+
 
     public class GemManager : MonoBehaviour
     {
@@ -57,39 +61,19 @@ namespace LeapLord
 
         private void SpawnGems()
         {
-            List<SpawnPoint> chosenSpawnPoints = new List<SpawnPoint>();
-            List<int> indexes = new List<int>();
+            List<SpawnPoint>? chosenSpawnPoints = RandomTools.GetRandomUniqueElements(spawnPoints, numberOfGems);
 
-            for (int i = 0; i < spawnPoints.Count; i++)
+            if (chosenSpawnPoints != null)
             {
-                indexes.Add(i);
+                foreach (SpawnPoint sp in chosenSpawnPoints)
+                {
+                    GameObject gemGO = Instantiate(gemPrefab);
+                    gemGO.transform.position = sp.marker.position;
+                    sp.gemUUID = gemGO.GetComponent<CheckpointGem>().UUID;
+                }
             }
 
-            // Do this numberOfGems times...
-            for (int i = 0; i < numberOfGems; i++)
-            {
-                // create an empty eligible list
-                List<SpawnPoint> eligibleSpawnPoints = new List<SpawnPoint>();
-                
-                
-                // iterate through the spawnpoints list
-                foreach (SpawnPoint sp in spawnPoints)
-                {
-                    // if this sp is unoccupied, add it to the eligible list
-                    if (sp.gemUUID == "") { eligibleSpawnPoints.Add(sp); }
-                }
-
-                // pick a random eligible spawn point
-                int aRando = Random.Range(0, eligibleSpawnPoints.Count);
-                SpawnPoint chosenSP = eligibleSpawnPoints[aRando];
-
-                // instantiate a gem and put it in this spawn point
-                GameObject newGemGO = Instantiate(gemPrefab);
-                newGemGO.transform.position = chosenSP.marker.transform.position;
-
-                // set the sp's gemUUID, so it doesn't appear in the eligible list next time around
-                chosenSP.gemUUID = newGemGO.GetComponent<CheckpointGem>().UUID;
-            } 
+            
         }
 
         private void ReplenishGem(SpawnPoint excludedSpawnPoint)
