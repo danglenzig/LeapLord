@@ -72,7 +72,7 @@ All inherit from the abstract class StateHandler. Each has override methods to d
 \- **Mechanic**: Jump strength accumulates while holding jump. On release, the state machine applies an impulse based on charge and hands off to the airborne state. Horizontal control during flight is blocked to preserve the Jump King feel.
 
 ### Physics and Movement
-\- **Physics**: Rigidbody-based motion and collisions; materials configured for character and surfaces.
+\- **Physics**: Rigidbody-based motion and collisions; materials configured for character and surfaces; raycast-based ground detection
 
 \- **Forces**: Impulse on jump start; gravity dominates during airborne. Friction/bounciness via physics materials as needed.
 
