@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\Helpers\NarrationNames.cs" />
     <Compile Include="Assets\Scripts\UI\MainMenuPanel.cs" />
     <Compile Include="Assets\Scripts\Helpers\SceneNames.cs" />
+    <Compile Include="Assets\Scripts\Scratch\ScratchObject.cs" />
     <Compile Include="Assets\Scripts\StateMachine\State.cs" />
     <Compile Include="Assets\Scripts\Collectibles\GemCollectEffect.cs" />
     <Compile Include="Assets\Scripts\Player\ParkedStateHandler.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Assets\Scripts\Player\Player.cs" />
     <Compile Include="Assets\Scripts\Misc\AnimTester.cs" />
     <Compile Include="Assets\Scripts\Player\StateHandlers.cs" />
+    <Compile Include="Assets\Scripts\Scratch\Scratch.cs" />
     <Compile Include="Assets\Scripts\Player\TeleportEffect.cs" />
     <Compile Include="Assets\Scripts\Misc\Oscillator.cs" />
     <Compile Include="Assets\Scripts\StateMachine\SimpleStateMachine.cs" />

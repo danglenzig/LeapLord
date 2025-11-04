@@ -441,6 +441,8 @@
 "Assets/Scripts/Player/StateHandlers.cs"
 "Assets/Scripts/Player/TeleportEffect.cs"
 "Assets/Scripts/Player/WalkStateHandler.cs"
+"Assets/Scripts/Scratch/Scratch.cs"
+"Assets/Scripts/Scratch/ScratchObject.cs"
 "Assets/Scripts/Singletons/GameManager.cs"
 "Assets/Scripts/Singletons/InputHandler.cs"
 "Assets/Scripts/Singletons/PlayerManager.cs"
