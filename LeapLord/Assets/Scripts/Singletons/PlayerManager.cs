@@ -159,11 +159,6 @@ namespace LeapLord
             newCheckpoint.transform.position = lastCheckpointPos;
             newCheckpoint.gameObject.SetActive(true);
 
-            if (GetPlayer() != null)
-            {
-                GetPlayer().UnPark();
-            }
-
         }
     }
 }

@@ -50,11 +50,14 @@ namespace LeapLord
 
         public void SendEventString(string eventString)
         {
+            //Debug.Log(currentState.StateName);
+            
             if (currentState == null)
             {
                 Debug.Log("Something weird happened");
                 return;
             }
+            
 
             State nextState = null;
             foreach(StateTransition trans in currentState.Transitions)
@@ -66,11 +69,13 @@ namespace LeapLord
                 }
             }
 
+            /*
             if (nextState == null)
             {
                 Debug.Log($"{currentState.StateName} has no configured transition event {eventString}");
                 return;
             }
+            */
 
             if (nextState == currentState)
             {

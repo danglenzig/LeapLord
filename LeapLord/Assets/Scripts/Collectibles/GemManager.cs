@@ -59,6 +59,11 @@ namespace LeapLord
             SpawnGems();
         }
 
+        private void OnDestroy()
+        {
+            CheckpointGem.OnGemCollected -= HandleOnGemCollected;
+        }
+
         private void SpawnGems()
         {
             List<SpawnPoint>? chosenSpawnPoints = RandomTools.GetRandomUniqueElements(spawnPoints, numberOfGems);

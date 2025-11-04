@@ -155,7 +155,7 @@ MonoBehaviour:
   narrationPrefab: {fileID: 7796651401710257434, guid: e86a368a4e59a88469740edf2bfbefdb, type: 3}
   tutorialPrefab: {fileID: 742666019119542399, guid: b7779c0141d75074293571da24745cbc, type: 3}
   gameOverPanelPrefab: {fileID: 4007365291754292891, guid: 29638335190637c4389626836160e81c, type: 3}
-  skipIntro: 0
+  skipIntro: 1
 --- !u!4 &666241894
 Transform:
   m_ObjectHideFlags: 0

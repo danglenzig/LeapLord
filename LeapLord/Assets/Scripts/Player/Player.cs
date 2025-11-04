@@ -80,7 +80,9 @@ namespace LeapLord
             gameObject.tag = Tags.PLAYER_SINGLETON;
 
             // EVENT CONNECTIONS //
-            InputHandler.OnMoveXChanged += (_value) => { moveInputX = _value; };
+
+            //
+            InputHandler.OnMoveXChanged += HandleMoveInputChanged; //(_value) => { Debug.Log("FOO"); moveInputX = _value; };
             InputHandler.OnJumpPressed += HandleOnJumpPressed;
             InputHandler.OnJumpReleased += HandleOnJumpReleased;
 
@@ -102,6 +104,8 @@ namespace LeapLord
         {
             rb = GetComponent<Rigidbody>();
             stateHandlers.player = this;
+
+            UnPark();
 
             if (PlayerManager.IsNew == false)
             {
@@ -142,6 +146,13 @@ namespace LeapLord
                 default:
                     return;
             }
+        }
+
+        private void OnDestroy()
+        {
+            InputHandler.OnMoveXChanged -= HandleMoveInputChanged;
+            InputHandler.OnJumpPressed -= HandleOnJumpPressed;
+            InputHandler.OnJumpReleased -= HandleOnJumpPressed;
         }
 
         private void HandleContinue()
@@ -188,6 +199,12 @@ namespace LeapLord
                 default:
                     return;
             }
+        }
+
+        private void HandleMoveInputChanged(float _value)
+        {
+            Debug.Log("FOO");
+            moveInputX = _value;
         }
         private void HandleOnJumpReleased()
         {
