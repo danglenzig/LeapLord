@@ -4,8 +4,7 @@ namespace LeapLord
 {
     public class CheckpointGem : MonoBehaviour
     {
-
-        public static event System.Action<string> OnGemCollected;
+        public static event System.Action<string, Transform> OnGemCollected;
         public static event System.Action TriedToCollectButFull;
 
         private Oscillator myOscillator;
@@ -38,6 +37,7 @@ namespace LeapLord
 
         private void OnTriggerEnter(Collider other)
         {
+
             if (!other.gameObject.CompareTag(Tags.PLAYER_SINGLETON)) { return; }
 
             int collectedGems = PlayerManager.Gems;
@@ -47,17 +47,8 @@ namespace LeapLord
                 return;
             }
 
+            OnGemCollected?.Invoke(uuid, transform);
 
-            myCollider.isTrigger = false;
-
-            OnGemCollected?.Invoke(uuid);
-
-            Destroy(gameObject);
-        }
-
-        private System.Collections.IEnumerator HandleOnCollected()
-        {
-            yield return new WaitForSeconds(0.5f);
             Destroy(gameObject);
         }
 

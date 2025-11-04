@@ -148,7 +148,6 @@ namespace LeapLord
         {
             Vector3 lastPos = PlayerManager.LastPlayerPosition;
             transform.position = lastPos;
-            //TeleportToPosition(lastPos);
             AppearedOnContinue?.Invoke();
         }
 

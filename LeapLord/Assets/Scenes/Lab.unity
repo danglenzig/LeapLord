@@ -1379,7 +1379,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 429784581}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
   m_Name: 
@@ -1387,7 +1387,7 @@ MonoBehaviour:
   volumeTrigger: {fileID: 4025048894819821189}
   volumeLayer:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 4294967295
   stopNaNPropagation: 1
   finalBlitToCameraTarget: 0
   antialiasingMode: 0
@@ -3881,6 +3881,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GemManager
   gemPrefab: {fileID: 6860530139081428778, guid: b3c9200132a96214faa94cc50fd18a20, type: 3}
   numberOfGems: 5
+  vfxPrefab: {fileID: 4025235803702673618, guid: 9c7d194c8515dc94896821d3b0d266d6, type: 3}
 --- !u!1 &1215938158
 GameObject:
   m_ObjectHideFlags: 0
@@ -6599,7 +6600,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1378774144640418836}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
   m_Name: 

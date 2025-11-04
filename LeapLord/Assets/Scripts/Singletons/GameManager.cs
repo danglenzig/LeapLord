@@ -44,7 +44,7 @@ namespace LeapLord
 
         private void Awake()
         {
-            Time.timeScale = 0.5f;
+            //Time.timeScale = 0.5f;
 
             eventSystem?.gameObject.SetActive(false);
             NarrationData.BuildNarrations();

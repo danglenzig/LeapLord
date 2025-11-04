@@ -60,7 +60,7 @@ namespace LeapLord
 
             InputHandler.OnDropGemPressed += DropGem;
             InputHandler.OnTeleportPressed += TeleportToCheckpoint;
-            CheckpointGem.OnGemCollected += CollectGem;
+            GemManager.GMOnGemCollected += CollectGem;
             Player.AppearedOnContinue += HandleAppearedOnContinue;
 
         }
@@ -109,7 +109,6 @@ namespace LeapLord
 
             if (gems <= 0)
             {
-                //Debug.Log("You got no gems :(");
                 OnTriedToDropAGemButDontGotNone?.Invoke();
                 return;
             }
@@ -143,9 +142,7 @@ namespace LeapLord
                 Debug.Log("No checkpoints dropped");
                 return;
             }
-
             player.TeleportToPosition(lastCheckpointPos);
-
         }
 
         private void HandleAppearedOnContinue()
@@ -162,6 +159,10 @@ namespace LeapLord
             newCheckpoint.transform.position = lastCheckpointPos;
             newCheckpoint.gameObject.SetActive(true);
 
+            if (GetPlayer() != null)
+            {
+                GetPlayer().UnPark();
+            }
 
         }
     }

@@ -11,11 +11,20 @@ namespace LeapLord
 
     public class GemManager : MonoBehaviour
     {
+        public static event System.Action<string> GMOnGemCollected;
+
+
+        private const float DAMP = 1.0f;
 
         [SerializeField] private GameObject gemPrefab;
         [SerializeField] private int numberOfGems = 4;
+        [SerializeField] private GameObject vfxPrefab;
 
         private List<SpawnPoint> spawnPoints = new List<SpawnPoint>();
+
+        
+        public static bool Dampened = false;
+
 
         private void Awake()
         {
@@ -56,21 +65,31 @@ namespace LeapLord
                 indexes.Add(i);
             }
 
-
-            for (int j = 0; j < numberOfGems; j++)
+            // Do this numberOfGems times...
+            for (int i = 0; i < numberOfGems; i++)
             {
-                int aRando = Random.Range(0, indexes.Count);
-                indexes.Remove(aRando);
-                chosenSpawnPoints.Add(spawnPoints[aRando]);
-            }
+                // create an empty eligible list
+                List<SpawnPoint> eligibleSpawnPoints = new List<SpawnPoint>();
+                
+                
+                // iterate through the spawnpoints list
+                foreach (SpawnPoint sp in spawnPoints)
+                {
+                    // if this sp is unoccupied, add it to the eligible list
+                    if (sp.gemUUID == "") { eligibleSpawnPoints.Add(sp); }
+                }
 
-            foreach(SpawnPoint sp in chosenSpawnPoints)
-            {
-                GameObject gemGO = Instantiate(gemPrefab);
-                gemGO.transform.position = sp.marker.position;
-                sp.gemUUID = gemGO.GetComponent<CheckpointGem>().UUID;
-            }
+                // pick a random eligible spawn point
+                int aRando = Random.Range(0, eligibleSpawnPoints.Count);
+                SpawnPoint chosenSP = eligibleSpawnPoints[aRando];
 
+                // instantiate a gem and put it in this spawn point
+                GameObject newGemGO = Instantiate(gemPrefab);
+                newGemGO.transform.position = chosenSP.marker.transform.position;
+
+                // set the sp's gemUUID, so it doesn't appear in the eligible list next time around
+                chosenSP.gemUUID = newGemGO.GetComponent<CheckpointGem>().UUID;
+            } 
         }
 
         private void ReplenishGem(SpawnPoint excludedSpawnPoint)
@@ -90,26 +109,29 @@ namespace LeapLord
             GameObject gemGO = Instantiate(gemPrefab);
             gemGO.transform.position = chosenSpawnPoint.marker.transform.position;
             chosenSpawnPoint.gemUUID = gemGO.GetComponent<CheckpointGem>().UUID;
-
-            //Debug.Log(chosenSpawnPoint.gemUUID);
-
         }
 
-
-
-        private void HandleOnGemCollected(string uuid)
+        private void HandleOnGemCollected(string uuid, Transform gemTransform)
         {
-            foreach (SpawnPoint sp in spawnPoints)
+            foreach(SpawnPoint sp in spawnPoints)
             {
                 if (sp.gemUUID == uuid)
                 {
-                    sp.gemUUID = "";
-                    ReplenishGem(sp);
-                    return;
+                    sp.gemUUID = ""; // this SpawnPoint is now empty
+                    ReplenishGem(sp); // put a new one anywhere but here
+                    break; // we're done
                 }
             }
+            GMOnGemCollected?.Invoke(uuid); // The PlayerManager hears this and manages the gem inventory accordingly
+            PlayCollectVfxAtPosition(gemTransform.position);
         }
 
+        private void PlayCollectVfxAtPosition(Vector3 pos)
+        {
+            GameObject vfxGO = Instantiate(vfxPrefab);
+            vfxGO.transform.position = pos;
+            // it destroys itself when it's done.
+        }
 
     }
 }

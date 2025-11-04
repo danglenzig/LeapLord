@@ -65,6 +65,7 @@
     <Compile Include="Assets\Scripts\UI\MainMenuPanel.cs" />
     <Compile Include="Assets\Scripts\Helpers\SceneNames.cs" />
     <Compile Include="Assets\Scripts\StateMachine\State.cs" />
+    <Compile Include="Assets\Scripts\Collectibles\GemCollectEffect.cs" />
     <Compile Include="Assets\Scripts\Player\ParkedStateHandler.cs" />
     <Compile Include="Assets\Scripts\Player\WalkStateHandler.cs" />
     <Compile Include="Assets\Scripts\Singletons\GameManager.cs" />
