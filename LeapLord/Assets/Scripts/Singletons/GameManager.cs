@@ -44,6 +44,8 @@ namespace LeapLord
 
         private void Awake()
         {
+            Time.timeScale = 0.5f;
+
             eventSystem?.gameObject.SetActive(false);
             NarrationData.BuildNarrations();
             TutorialData.BuildTutorial();
@@ -218,25 +220,6 @@ namespace LeapLord
             SceneManager.LoadScene(SceneNames.START);
             mainMenuPanel?.gameObject.SetActive(true);
         }
-
-        /*
-        private void HandleIsNewChanged(bool _isNew)
-        {
-            
-            GameObject startButtonTextGO = startButton.transform.GetChild(0).gameObject;
-            TMP_Text startButtonText = startButtonTextGO.GetComponent<TMP_Text>();
-            if (_isNew == true)
-            {
-                startButtonText.text = "Start";
-            }
-            else
-            {
-                startButtonText.text = "Continue";
-                skipIntro = true;
-            }
-            
-        }
-        */
 
         private void HideTutorial()
         {

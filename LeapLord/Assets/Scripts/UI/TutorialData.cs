@@ -37,56 +37,56 @@ namespace LeapLord
             TutorialSlide slide01 = new TutorialSlide
                 (
                     1,
-                    "TutorialImages/TutorialWalk", // placeholder
+                    "TutorialImages/TutorialChargeJump", // placeholder
                     "Press SPACE to begin charging your leap."
                 );
 
             TutorialSlide slide02 = new TutorialSlide
                 (
                     2,
-                    "TutorialImages/TutorialWalk", // placeholder
+                    "TutorialImages/TutorialUnleashJump", // placeholder
                     "Release SPACE to unleash your leap."
                 );
 
             TutorialSlide slide03 = new TutorialSlide
                 (
                     3,
-                    "TutorialImages/TutorialWalk", // placeholder
+                    "TutorialImages/TutorialUnleashJump", // placeholder
                     "The longer you charge your leap, the higher and further it will be."
                 );
 
             TutorialSlide slide04 = new TutorialSlide
                 (
                     4,
-                    "TutorialImages/TutorialWalk", // placeholder
+                    "TutorialImages/TutorialCollectGems", // placeholder
                     "Collect teleportation gems. Use them to create checkpoints."
                 );
 
             TutorialSlide slide05 = new TutorialSlide
                 (
                     5,
-                    "TutorialImages/TutorialWalk", // placeholder
+                    "TutorialImages/TutorialDropGem", // placeholder
                     "Press E to drop a collected gem and create a checkpoint."
                 );
 
             TutorialSlide slide06 = new TutorialSlide
                 (
                     6,
-                    "TutorialImages/TutorialWalk", // placeholder
+                    "TutorialImages/TutorialTeleport_A", // placeholder
                     "Press Q to teleport to your last checkpoint. This is useful of you fall."
                 );
 
             TutorialSlide slide07 = new TutorialSlide
                 (
                     7,
-                    "TutorialImages/TutorialWalk", // placeholder
-                    "Press ESC at any time to pause the game and review this tutorial."
+                    "TutorialImages/TutorialTeleport_A", // placeholder
+                    "Press ESC at any time, or hit the PuseButton in the HUD to pause the game and review this tutorial."
                 );
 
             TutorialSlide slide08 = new TutorialSlide
                 (
                     8,
-                    "TutorialImages/TutorialWalk", // placeholder
+                    "TutorialImages/TutorialTeleport_A", // placeholder
                     "Godspeed, Your Majesty!"
                 );
 
