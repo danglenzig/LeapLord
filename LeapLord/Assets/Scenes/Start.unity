@@ -154,7 +154,8 @@ MonoBehaviour:
   hudPrefab: {fileID: 6756550416682243875, guid: d088baa5e6ede3a44860f00ab3c5ad6d, type: 3}
   narrationPrefab: {fileID: 7796651401710257434, guid: e86a368a4e59a88469740edf2bfbefdb, type: 3}
   tutorialPrefab: {fileID: 742666019119542399, guid: b7779c0141d75074293571da24745cbc, type: 3}
-  skipIntro: 1
+  gameOverPanelPrefab: {fileID: 4007365291754292891, guid: 29638335190637c4389626836160e81c, type: 3}
+  skipIntro: 0
 --- !u!4 &666241894
 Transform:
   m_ObjectHideFlags: 0
@@ -473,7 +474,7 @@ Camera:
   m_GameObject: {fileID: 2021909816}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2

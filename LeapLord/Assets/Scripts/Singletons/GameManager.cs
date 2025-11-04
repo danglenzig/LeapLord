@@ -16,11 +16,14 @@ namespace LeapLord
         [SerializeField] private GameObject? hudPrefab;
         [SerializeField] private GameObject? narrationPrefab;
         [SerializeField] private GameObject? tutorialPrefab;
+        [SerializeField] private GameObject? gameOverPanelPrefab;
 
         private MainMenuPanel? mainMenuPanel = null;
         private HudUI? hudPanel = null;
         private NarrationUI? narrationUI = null;
         private TutorialUI? tutorialUI = null;
+        //private GameObject gameOverPanel = null;
+        private GameOverUI gameOverUI = null;
 
         [SerializeField] private bool skipIntro = false;
 
@@ -78,6 +81,11 @@ namespace LeapLord
             GameObject? tutGo = Instantiate(tutorialPrefab, mainCanvas.transform);
             tutorialUI = tutGo?.GetComponent<TutorialUI>();
 
+            //gameOverPanel = Instantiate(gameOverPanelPrefab, mainCanvas.transform);
+            GameObject? gameOverGo = Instantiate(gameOverPanelPrefab, mainCanvas.transform);
+            gameOverUI = gameOverGo.GetComponent<GameOverUI>();
+
+
             InputHandler.OnPausePressed += HandleOnPausePressed;
 
             MainMenuPanel.OnStartButtonPressed += HandleOnStartButtonPressed;
@@ -92,11 +100,16 @@ namespace LeapLord
             HudUI.OnMainPressed += HandleOnMainMenuPressed;
             HudUI.OnPausePressed += HandleOnPausePressed;
             HudUI.OnQuitPressed += HandleOnQuitButtonPressed;
+            GameOverUI.OnGameOverQuitPressed += HandleOnQuitButtonPressed;
+
+
+            Crown.OnCrownGot += HandleOnCrownGot;
 
             mmGo?.SetActive(false);
             hudGo?.SetActive(false);
             narrGo?.SetActive(false);
             tutGo?.SetActive(false);
+            gameOverGo.SetActive(false);
 
         }
 
@@ -121,6 +134,7 @@ namespace LeapLord
             {
                 if (!skipIntro)
                 {
+                    narrationUI?.SetDisplayBackgroundImage(true);
                     narrationUI?.StartNarration(NarrationData.OpeningNarration);
                 }
                 else
@@ -149,7 +163,6 @@ namespace LeapLord
 
         public void HandleOnQuitButtonPressed()
         {
-            Debug.Log("FOO");
             UnityEditor.EditorApplication.isPlaying = false;
             Application.Quit();
         }
@@ -174,6 +187,11 @@ namespace LeapLord
                     return;
 
                 case NarrationNames.CLOSING_NARRATION:
+
+                    
+                    narrationUI.gameObject.SetActive(false);
+                    gameOverUI.gameObject.SetActive(true);
+
                     return;
             }
             
@@ -235,6 +253,18 @@ namespace LeapLord
             
         }
 
+        private void HandleOnCrownGot()
+        {
+            Player? player = GetPlayer();
+            if (player == null) { Debug.Log("Something weird happened"); return; }
+
+            player.Park();
+            hudPanel?.gameObject.SetActive(false);
+            narrationUI?.gameObject.SetActive(true);
+            narrationUI?.SetDisplayBackgroundImage(false);
+            narrationUI?.StartNarration(NarrationData.ClosingNarration);
+        }
+
         private void DisplayTutorial()
         {
 
@@ -245,6 +275,7 @@ namespace LeapLord
             if (player != null)
             {
                 player.Park();
+                
             }
             
         }

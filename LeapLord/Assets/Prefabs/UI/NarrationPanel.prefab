@@ -514,6 +514,7 @@ MonoBehaviour:
   portraitImage: {fileID: 8637190913131378487}
   narrationText: {fileID: 754842179218129364}
   continueButton: {fileID: 1554229561775280149}
+  backgroundImage: {fileID: 6075872212618370544}
 --- !u!1 &8426973159308220122
 GameObject:
   m_ObjectHideFlags: 0

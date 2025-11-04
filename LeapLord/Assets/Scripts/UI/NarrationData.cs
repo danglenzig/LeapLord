@@ -159,14 +159,22 @@ namespace LeapLord
                 (
                     0,
                     "NarrationPortraits/Blank",
-                    "Hello world. I am the first line of the closing narration"
+                    "And so, after an afternoon of furious leaping, undignified falling, and inexplicable teleporting, His Humble Majesty at last reach the top of the tower."
                 );
             NarrationLine closing01 = new NarrationLine
                 (
                     1,
-                    "NarrationPortraits/Leo_03",
-                    "Hello world. I am the second line of closing narration"
+                    "NarrationPortraits/Leo_04",
+                    "Behold! Our crown! The sacred symbol of divine authority and virile magnificence!"
                 );
+
+            NarrationLine closing02 = new NarrationLine
+                (
+                    2,
+                    "NarrationPortraits/Leo_04",
+                    "Once again, the realm shall tremble before my shining magnificence!"
+                );
+
             List<NarrationLine> closingLines = new List<NarrationLine>();
             closingLines.Add(closing00);
             closingLines.Add(closing01);
@@ -176,36 +184,6 @@ namespace LeapLord
 
 
 
-
-        /*
-        public static List<NarrationLine> BuildAndReturnNarrationLines()
-        // the UI manager will grab this list, and put the appropriate 
-        // narration text and portrait texture on the canvas based on
-        // game events.
-        {
-
-            List<NarrationLine> lines = new List<NarrationLine>();
-
-            NarrationLine line00 = new NarrationLine
-                (
-                    0,
-                    "NarrationPortraits/Blank",
-                    "Hello world. I am the first line of narration"
-                );
-
-            NarrationLine line01 = new NarrationLine
-                (
-                    1,
-                    "NarrationPortraits/Leo_03",
-                    "Hello world. I am the second line of narration"
-                );
-
-            lines.Add(line00);
-            lines.Add(line01);
-
-            return lines;
-        }
-        */
     }
         
 }

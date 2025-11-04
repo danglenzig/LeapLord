@@ -78,6 +78,7 @@
     <Compile Include="Assets\Scripts\UI\TutorialData.cs" />
     <Compile Include="Assets\Scripts\Player\IdleStateHandler.cs" />
     <Compile Include="Assets\Scripts\UI\TutorialUI.cs" />
+    <Compile Include="Assets\Scripts\UI\GameOverUI.cs" />
     <Compile Include="Assets\Scripts\Singletons\PlayerManager.cs" />
     <Compile Include="Assets\Scripts\UI\NarrationData.cs" />
     <Compile Include="Assets\Scripts\Misc\FloatTweener.cs" />

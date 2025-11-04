@@ -18,6 +18,7 @@ namespace LeapLord
         [SerializeField] private RawImage? portraitImage;
         [SerializeField] private TMP_Text? narrationText;
         [SerializeField] private Button? continueButton;
+        [SerializeField] private RawImage? backgroundImage;
 
         private Narration? currentNarration = null;
         private int currentNarrationIndex = -1;
@@ -32,6 +33,11 @@ namespace LeapLord
         {
             currentNarration = narration;
             ContinueNarration();
+        }
+
+        public void SetDisplayBackgroundImage(bool _value)
+        {
+            backgroundImage.gameObject.SetActive(_value);
         }
 
 

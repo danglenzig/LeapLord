@@ -52,7 +52,7 @@ namespace LeapLord
         {
             float moveRight = 0.0f;
             float moveLeft = 0.0f;
-            if (myKB.dKey.isPressed)
+            if (myKB.dKey.isPressed || myKB.rightArrowKey.isPressed)
             {
                 moveRight = 1.0f;
             }
@@ -61,7 +61,7 @@ namespace LeapLord
                 moveRight = 0.0f;
             }
 
-            if (myKB.aKey.isPressed)
+            if (myKB.aKey.isPressed || myKB.leftArrowKey.isPressed)
             {
                 moveLeft = -1.0f;
             }
