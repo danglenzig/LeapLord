@@ -37,7 +37,7 @@ Nexile's [Jump King](https://en.wikipedia.org/wiki/Jump_King) is a "tactical lea
 
 2\) Set the Game window to 1920:1080 resolution, and press Play.
 
-3\) Use keyboard/controller per Input System bindings to move, hold jump to charge, and release to commit to the jump. The in-game onboarding routine will cover this.
+3\) Use keyboard/controller per Input System bindings to move, hold jump to charge, and release to commit to the jump. The in-game onboarding tutorial will cover this.
 
 4\) Watch the jump bar for charge strength. Collect gems and drop checkpoints as you progress upward.
 
