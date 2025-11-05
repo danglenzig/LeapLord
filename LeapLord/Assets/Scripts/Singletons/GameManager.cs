@@ -261,7 +261,7 @@ namespace LeapLord
             player.Park();
             hudPanel?.gameObject.SetActive(false);
             narrationUI?.gameObject.SetActive(true);
-            narrationUI?.SetDisplayBackgroundImage(false);
+            narrationUI?.SetDisplayBackgroundImage(true);
             narrationUI?.StartNarration(NarrationData.ClosingNarration);
         }
 

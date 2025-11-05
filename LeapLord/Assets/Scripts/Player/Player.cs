@@ -203,7 +203,7 @@ namespace LeapLord
 
         private void HandleMoveInputChanged(float _value)
         {
-            Debug.Log("FOO");
+            //Debug.Log("FOO");
             moveInputX = _value;
         }
         private void HandleOnJumpReleased()

@@ -97,7 +97,7 @@ namespace LeapLord
                 (
                     6,
                     "NarrationPortraits/Leo_00",
-                    "Then we shall take the Royal Stairs!"
+                    "Then we shall take the ROYAL STAIRS!"
                 ); openingLines.Add(opening06);
 
             NarrationLine opening07 = new NarrationLine
@@ -125,7 +125,7 @@ namespace LeapLord
                 (
                     10,
                     "NarrationPortraits/Peasant",
-                    "...and dismissed all the programmers after we got that AI."
+                    "...and dismissed all the programmers after we got that Royal AI."
                 ); openingLines.Add(opening10);
 
             NarrationLine opening11 = new NarrationLine
@@ -165,19 +165,20 @@ namespace LeapLord
                 (
                     1,
                     "NarrationPortraits/Leo_04",
-                    "Behold! Our crown! The sacred symbol of divine authority and virile magnificence!"
+                    "Behold! Our crown! The sacred symbol of divine authority and virile majesty!"
                 );
 
             NarrationLine closing02 = new NarrationLine
                 (
                     2,
                     "NarrationPortraits/Leo_04",
-                    "Once again, the realm shall tremble before my shining magnificence!"
+                    "Once again, the realm shall tremble before our shining magnificence!"
                 );
 
             List<NarrationLine> closingLines = new List<NarrationLine>();
             closingLines.Add(closing00);
             closingLines.Add(closing01);
+            closingLines.Add(closing02);
             ClosingNarration = new Narration(NarrationNames.CLOSING_NARRATION, closingLines);
 
         }
