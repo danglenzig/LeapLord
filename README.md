@@ -41,18 +41,6 @@ Nexile's [Jump King](https://en.wikipedia.org/wiki/Jump_King) is a "tactical lea
 
 4\) Watch the jump bar for charge strength. Collect gems and drop checkpoints as you progress upward.
 
-## Future Work / Nice-to-haves
-
-\- More skillful and challenging level design. What's here now is a bare minimum, intended only to demonstrate the core mechanics.
-
-\- Add sound effects and simple background music.
-
-\- Expand hazard variety and add a small enemy type with patrol AI.
-
-\- Add optional power-up that temporarily modifies jump charge rate or max strength, or allows minimal horizontal control while airborne.
-
-\- Polish camera transitions across tall vertical sections.
-
 
 ---
 
@@ -160,4 +148,20 @@ All inherit from the abstract class StateHandler. Each has override methods to d
 
 \- **Utilities**: `MiscTools` namespace contains a class called `RandomTools`, which contains a method for selecting a number of unique random elements from a list (used by the `GemManager` for spawning collectibles)
 
+
+## Future Work / Nice-to-haves
+
+\- More skillful and challenging level design. What's here now is a bare minimum, intended only to demonstrate the core mechanics. More content in general.
+
+\- Add sound effects and simple background music.
+
+\- Expand hazard variety and add a small enemy type with patrol AI.
+
+\- Add optional power-up that temporarily modifies jump charge rate or max strength, or allows minimal horizontal control while airborne.
+
+\- Polish camera transitions across tall vertical sections.
+
+\- Save system
+
+\- Ongoing code improvement and refactoring, as my skills improve.
 
