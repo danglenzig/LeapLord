@@ -1,8 +1,10 @@
+// DEPRECTAED -- Using the player poling system in CameraMover now instead
 using UnityEngine;
 namespace LeapLord
 {
     public class CameraTrigger : MonoBehaviour
     {
+        /*
         public static event System.Action<int> OnTriggered;
 
         [SerializeField] int roomID;
@@ -23,7 +25,7 @@ namespace LeapLord
             if (!playerInside) return;
             playerInside = false;
         }
-
+        */
 
     }
 }
