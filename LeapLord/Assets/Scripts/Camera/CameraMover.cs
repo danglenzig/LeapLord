@@ -29,7 +29,7 @@ namespace LeapLord
         private bool beMoving = true;
 
         private float timeAccumulator = 0.0f;
-        private float pollingInterval = 0.0f;
+        private float pollingInterval = 0.05f;
 
         private void Start()
         {
