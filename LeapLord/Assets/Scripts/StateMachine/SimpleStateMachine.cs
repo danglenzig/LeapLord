@@ -69,13 +69,13 @@ namespace LeapLord
                 }
             }
 
-            /*
+            
             if (nextState == null)
             {
                 Debug.Log($"{currentState.StateName} has no configured transition event {eventString}");
                 return;
             }
-            */
+            
 
             if (nextState == currentState)
             {
