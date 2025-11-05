@@ -80,7 +80,7 @@ namespace LeapLord
                 (
                     7,
                     "TutorialImages/TutorialTeleport_A", // placeholder
-                    "Press ESC at any time, or hit the PuseButton in the HUD to pause the game and review this tutorial."
+                    "Press ESC at any time, or hit the Pause Button in the HUD to pause the game and review this tutorial."
                 );
 
             TutorialSlide slide08 = new TutorialSlide
