@@ -24,10 +24,35 @@
 
 ## Summary
 
-Leap Lord is a small, systems-focused recreation inspired by Jump King. The emphasis is on a single, polishable level and a single core mechanic: charging a jump and committing to its outcome. There is minimal or no mid-air control; skill comes from gauging charge strength and route planning.
+Leap Lord is a small, systems-focused recreation inspired by Jump King. The emphasis is on a single, polishable level and a single core mechanic: charging a jump and committing to its outcome. There's no mid-air control, so skill comes from gauging charge strength and route planning.
 
 ### Inspiration
 Nexile's [Jump King](https://en.wikipedia.org/wiki/Jump_King) is a "tactical leaping adventure" that reduces platforming to its most essential, high-stakes component: a single, chargeable jump. Players must ascend a colossal vertical tower where the only mechanic involves precisely holding a button to gauge jump height and trajectory, with no air control to correct mistakes. This deliberate design means a single miscalculation can result in a punishing fall, potentially erasing hours of progress. Its core retro appeal lies in this unforgiving, "maso-core" difficulty, demanding pure mastery and patience from the player in exchange for the immense satisfaction of each successful ascent.
+
+---
+
+## How to Play (Editor)
+
+1\) Open `Assets/Scenes/Start.unity`. 
+
+2\) Set the Game window to 1920:1080 resolution, and press Play.
+
+3\) Use keyboard/controller per Input System bindings to move, hold jump to charge, and release to commit to the jump. The in-game onboarding routine will cover this.
+
+4\) Watch the jump bar for charge strength. Collect gems and drop checkpoints as you progress upward.
+
+## Future Work / Nice-to-haves
+
+\- More skillful and challenging level design. What's here now is a bare minimum, intended only to demonstrate the core mechanics.
+
+\- Add sound effects and simple background music.
+
+\- Expand hazard variety and add a small enemy type with patrol AI.
+
+\- Add optional power-up that temporarily modifies jump charge rate or max strength, or allows minimal horizontal control while airborne.
+
+\- Polish camera transitions across tall vertical sections.
+
 
 ---
 
@@ -69,12 +94,12 @@ All inherit from the abstract class StateHandler. Each has override methods to d
 
 &nbsp; - State framework: `Assets/Scripts/StateMachine/\*.cs`
 
-\- **Mechanic**: Jump strength accumulates while holding jump. On release, the state machine applies an impulse based on charge and hands off to the airborne state. Horizontal control during flight is blocked to preserve the Jump King feel.
+\- **Mechanic**: Jump strength accumulates while holding the jump input. On release, the state machine applies an impulse based on charge and hands off to the airborne state. Horizontal control during flight is blocked to preserve the Jump King feel.
 
 ### Physics and Movement
 \- **Physics**: Rigidbody-based motion and collisions; materials configured for character and surfaces; raycast-based ground detection
 
-\- **Forces**: Impulse on jump start; gravity dominates during airborne. Friction/bounciness via physics materials as needed.
+\- **Forces**: Impulse on jump start; gravity dominates during airborne; Friction/bounciness via physics materials as needed.
 
 ### Camera System
 
@@ -88,7 +113,7 @@ All inherit from the abstract class StateHandler. Each has override methods to d
 
 ### Collectibles / Checkpoints
 
-\- **Concept**: Without these, you lose all your progress when you miss a jump and fall from a great height. Spending collectible gems allow you to place checkpoint markers in the level. You can then teleport to your most-recently dropped checkpoint from anywhere in the level. The gems are a scarce and exhaustible resource though, so you need to use them strategically and judiciously.
+\- **Concept**: Without these, you lose all your progress when you miss a jump and fall from a great height. Spending collectible gems allows you to place checkpoint markers in the level. You can then teleport to your most-recently dropped checkpoint from anywhere in the level. The gems are a scarce and exhaustible resource though, so you need to use them strategically.
 
 \- **Scripts**: `CheckpointGem` handles collectible interaction in combination with `PlayerManager`. `GemManager` handles spawning and replenishing checkpoint gems from the collectible prefab.
 
@@ -102,7 +127,7 @@ All inherit from the abstract class StateHandler. Each has override methods to d
 
 \- **HUD**: Contains buttons for pausing, quitting, and returning to the main menu. Also contains text with collectibles information.
 
-\- **Text rendering**: TextMesh Pro with free-use fonts (1001fonts.com) in `Assets/Fonts`.
+\- **Text rendering**: TextMesh Pro with free-use fonts from [1001fonts.com](https://www.1001fonts.com/) in `Assets/Fonts`.
 
 
 ### Menus and Scene Management
@@ -133,27 +158,6 @@ All inherit from the abstract class StateHandler. Each has override methods to d
 
 \- **Helpers**: `EnumLeoAnimations`, `Tags`, `NarrationNames` — central enums/constants intended to reduce the need for string literals elsewhere in the game.
 
+\- **Utilities**: `MiscTools` namespace contains a class called `RandomTools`, which contains a method for selecting a number of unique random elements from a list (used by the `GemManager` for spawning collectibles)
 
----
 
-## How to Play (Editor)
-
-1\) Open `Assets/Scenes/Start.unity`. 
-
-2\) Set the Game window to 1920:1080 resolution, and press Play.
-
-3\) Use keyboard/controller per Input System bindings to move, hold jump to charge, and release to commit to the jump. The in-game onboarding routine will cover this.
-
-4\) Watch the jump bar for charge strength. Collect gems and drop checkpoints as you progress upward.
-
-## Future Work / Nice-to-haves
-
-\- More skillful and challenging level design. What's here now is a bare minimum, intended only to demonstrate the core mechanics.
-
-\- Add sound effects and simple background music.
-
-\- Expand hazard variety and add a small enemy type with patrol AI.
-
-\- Add optional power-up that temporarily modifies jump charge rate or max strength, or allows minimal horizontal control while airborne.
-
-\- Polish camera transitions across tall vertical sections.
