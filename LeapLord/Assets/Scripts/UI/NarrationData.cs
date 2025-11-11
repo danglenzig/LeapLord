@@ -62,7 +62,7 @@ namespace LeapLord
                 (
                     1,
                     "NarrationPortraits/Leo_03",
-                    "KING: Alas! Our crown is gone! The very symbol of our sovereign power and boundless virility! How can we face our filthy peasants bare-headed?"
+                    "KING: Alas! Our crown is gone! The very symbol of our sovereign power and boundless virility! How can we face our filthy peasantry bare-headed?"
                 ); openingLines.Add(opening01);
 
             NarrationLine opening02 = new NarrationLine
@@ -125,7 +125,7 @@ namespace LeapLord
                 (
                     10,
                     "NarrationPortraits/Peasant",
-                    "...and dismissed all the programmers after we got that Royal AI."
+                    "...and dismissed all the programmers after we got the Royal AI."
                 ); openingLines.Add(opening10);
 
             NarrationLine opening11 = new NarrationLine
@@ -146,7 +146,7 @@ namespace LeapLord
                 (
                     13,
                     "NarrationPortraits/Leo_00",
-                    "Leap? Hah! A royal leap it shall be! Summon the trumpets! Fetch the...wait, how exactly does that work?"
+                    "Leap? Hah! A royal leap it shall be! Sound the trumpets! Fetch the...wait, how exactly does that work?"
                 ); openingLines.Add(opening13);
 
             OpeningNarration = new Narration(NarrationNames.OPENING_NARRATION, openingLines);
@@ -172,7 +172,7 @@ namespace LeapLord
                 (
                     2,
                     "NarrationPortraits/Leo_04",
-                    "Once again, the realm shall tremble before our shining magnificence!"
+                    "Once again, the realm shall tremble before our shining manliness!"
                 );
 
             List<NarrationLine> closingLines = new List<NarrationLine>();
